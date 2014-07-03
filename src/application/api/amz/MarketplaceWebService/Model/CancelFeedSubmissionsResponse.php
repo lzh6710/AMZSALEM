@@ -19,7 +19,7 @@
 /**
  *  @see MarketplaceWebService_Model
  */
-// require_once ('MarketplaceWebService/Model.php');  
+require_once ('MarketplaceWebService/Model.php');  
 
     
 
@@ -191,4 +191,13 @@ class MarketplaceWebService_Model_CancelFeedSubmissionsResponse extends Marketpl
         return $xml;
     }
 
+    private $_responseHeaderMetadata = null;
+
+    public function getResponseHeaderMetadata() {
+      return $this->_responseHeaderMetadata;
+    }
+
+    public function setResponseHeaderMetadata($responseHeaderMetadata) {
+      return $this->_responseHeaderMetadata = $responseHeaderMetadata;
+    }
 }
