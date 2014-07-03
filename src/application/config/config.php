@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/amz/';
+$config['base_url']	= 'http://amz.com/';
 
 /*
 |--------------------------------------------------------------------------
