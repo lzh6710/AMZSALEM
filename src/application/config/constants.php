@@ -36,6 +36,22 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+|--------------------------------------------------------------------------
+| Define Roles
+|--------------------------------------------------------------------------
+|
+*/
+
+define('PRODUCT_ADD',		'pa'); 
+define('PRODUCT_EDIT',		'pe');
+define('PRODUCT_DELETE',	'pd');
+define('EXPORT_FILE',	    'ef'); 
+define('ORDER_VIEW',		'ov');
+define('ORDER_CONFIRM',		'oc');
+define('ORDER_DELETE',		'od');
+
+define ("ROLES", serialize(array ('pa', 'pe', 'pd', 'ef', 'ov', 'oc', 'od')));
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

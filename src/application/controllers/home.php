@@ -17,7 +17,7 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		check_login();
+		check_login(false);
 		$this->layout->view('home');
 	}
 }

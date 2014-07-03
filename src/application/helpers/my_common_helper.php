@@ -1,13 +1,19 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
-function check_login()
-{
+function check_login($checkAdmin) {
 	$CI = get_instance();
-	if (!$CI->session->userdata('loginInfo')) {
+	$user_info = $CI->session->userdata('loginInfo');
+	if (!$user_info) {
 		redirect('login');
-	} else {
-		return $CI->session->userdata('loginInfo');
 	}
+	
+	if ($checkAdmin) {
+		if ($user_info['isAdmin'] == 0) {
+			show_404();
+		}
+	}
+	
+	return $user_info;
 }
 
 function isAjax() {

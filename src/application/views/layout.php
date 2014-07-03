@@ -73,12 +73,14 @@
 		                        <span>Home</span>
 		                    </a>
 		                </li>
+		                <?php if ($loginInfo['isAdmin'] == 1) { ?>
 		            	<li>
-		                    <a href="<?php echo base_url()?>user/management">
+		                    <a href="<?php echo base_url()?>management">
 		                        <i class="fa  fa-group"></i>
 		                        <span>User Management</span>
 		                    </a>
 		                </li>
+		                <?php }?>
 		                <li>
 		                    <a href="#">
 		                        <i class="fa  fa-pencil-square-o"></i>

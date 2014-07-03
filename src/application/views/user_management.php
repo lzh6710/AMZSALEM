@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url()?>js/layout.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>js/user_management.js"></script>
 <div class="row">
 	<div class="col-sm-12">
 		<section class="panel">
@@ -13,9 +13,11 @@
 			<div class="panel-body">
 				<div class="clearfix fill">
 					<div class="btn-group">
+					<a href="<?php echo base_url()?>management/add">
 						<button id="editable-sample_new" class="btn btn-primary">
 							Add New <i class="fa fa-plus"></i>
 						</button>
+					</a>
 					</div>
 					<div class="btn-group pull-right dropdown">
 						<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
@@ -27,7 +29,7 @@
 						</ul>
 					</div>
 				</div>
-				<table class="table table-hover table-striped general-table">
+				<table id="userTable" class="table table-hover table-striped general-table">
 					<thead>
 					<tr>
 						<th>ID</th>
@@ -39,64 +41,28 @@
 					</tr>
 					</thead>
 					<tbody>
+						<?php foreach ($user_list as $user) : ?>
 						<tr>
-							<td><a href="#">Admin</a></td>
-							<td>Nguyễn Ngọc Trung</td>
-							<td>nguyentrung204@gmail.com</td>
-							<td>+84 977 817 837</td>
-							<td>182 Lý Chính Thắng P13 Q3 Tp.HCM</td>
-							<td><span class="label label-success label-mini">Active</span></td>
+							<td>
+								<a class="edit" href="javascript:void(0);">
+									<?php echo $user->username?>
+									<input type=hidden value="<?php echo $user->username?>">
+								</a>
+							</td>
+							<td><?php echo $user->name?></td>
+							<td><?php echo $user->email?></td>
+							<td><?php echo $user->phone?></td>
+							<td><?php echo $user->address?></td>
+							<td><span class="label <?php if ($user->isActive) { ?> label-success <?php } else { ?> label-danger <?php } ?> label-mini"><?php if ($user->isActive) { ?> Active <?php } else { ?> Locked <?php } ?></span></td>
 						</tr>
-						<tr>
-							<td><a href="#">vntrieu</a></td>
-							<td>Võ Ngọc Triệu</td>
-							<td>vntrieu@gmail.com</td>
-							<td>+84 909 745 234</td>
-							<td>182 Lý Chính Thắng P13 Q3 Tp.HCM</td>
-							<td><span class="label label-danger label-mini">Lock</span></td>
-						</tr>
-						<tr>
-							<td><a href="#">vntrieu</a></td>
-							<td>Võ Ngọc Triệu</td>
-							<td>vntrieu@gmail.com</td>
-							<td>+84 909 745 234</td>
-							<td>182 Lý Chính Thắng P13 Q3 Tp.HCM</td>
-							<td><span class="label label-success label-mini">Active</span></td>
-						</tr>
-						<tr>
-							<td><a href="#">vntrieu</a></td>
-							<td>Võ Ngọc Triệu</td>
-							<td>vntrieu@gmail.com</td>
-							<td>+84 909 745 234</td>
-							<td>182 Lý Chính Thắng P13 Q3 Tp.HCM</td>
-							<td><span class="label label-danger label-mini">Lock</span></td>
-						</tr>
-						<tr>
-							<td><a href="#">vntrieu</a></td>
-							<td>Võ Ngọc Triệu</td>
-							<td>vntrieu@gmail.com</td>
-							<td>+84 909 745 234</td>
-							<td>182 Lý Chính Thắng P13 Q3 Tp.HCM</td>
-							<td><span class="label label-success label-mini">Active</span></td>
-						</tr>
-						<tr>
-							<td><a href="#">vntrieu</a></td>
-							<td>Võ Ngọc Triệu</td>
-							<td>vntrieu@gmail.com</td>
-							<td>+84 909 745 234</td>
-							<td>182 Lý Chính Thắng P13 Q3 Tp.HCM</td>
-							<td><span class="label label-danger label-mini">Lock</span></td>
-						</tr>
-						<tr>
-							<td><a href="#">vntrieu</a></td>
-							<td>Võ Ngọc Triệu</td>
-							<td>vntrieu@gmail.com</td>
-							<td>+84 909 745 234</td>
-							<td>182 Lý Chính Thắng P13 Q3 Tp.HCM</td>
-							<td><span class="label label-success label-mini">Active</span></td>
-						</tr>
+						<?php endforeach;?>
 					</tbody>
 				</table>
+				<form id="editForm" method="post" class="hide" action="<?php echo base_url()?>management/edit">
+					<input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+					<input type=hidden name="username" id="username">
+					<input type=hidden name="fromList" value="1">
+				</form>
 			</div>
 		</section>
 	</div>

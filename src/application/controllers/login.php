@@ -22,19 +22,17 @@ class Login extends CI_Controller {
 			redirect('home');
 		} else {
 			$user_info = array(
-					'username'  => '',
+					'username'	=> '',
 					'password'	=> '',
-					'remember'  => 0
+					'remember'	=> 0
 			);
 			$cookie_name = 'siteAuth';
-			// Check if the cookie exists
 			if(get_cookie($cookie_name, TRUE)){
 				parse_str(get_cookie($cookie_name, TRUE), $a_User);
-				// Register the session
 				$user_info = array(
-						'username'  => $a_User['username'],
+						'username'	=> $a_User['username'],
 						'password'	=> $a_User['password'],
-						'remember'  => 1
+						'remember'	=> 1
 				);
 			}
 			$this->load->view('login', $user_info);

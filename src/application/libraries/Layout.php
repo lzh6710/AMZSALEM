@@ -20,7 +20,7 @@ class Layout
     function view($view, $data=null, $return=false)
     {
         $loadedData = array();
-		$loginInfo = check_login();
+		$loginInfo = check_login(false);
 		$loadedData['loginInfo'] = $loginInfo;
         $loadedData['content_for_layout'] = $this->obj->load->view($view,$data,true);
 
