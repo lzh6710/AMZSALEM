@@ -24,3 +24,9 @@ $service = new MarketplaceWebService_Client(
 		$config,
 		APPLICATION_NAME,
 		APPLICATION_VERSION);
+
+class AmzAdapter {
+	function addProduct($product) {
+		
+	}
+}
