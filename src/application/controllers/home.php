@@ -13,13 +13,11 @@ class Home extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->helper('html');
-		$this->load->library('amazon_api');
 	}
 
 	public function index()
 	{
 		check_login(false);
-		
 		$this->layout->view('home');
 	}
 	
@@ -31,7 +29,7 @@ class Home extends CI_Controller {
 		{
 			echo $e->getMessage();
 		}
- 
+
 		print_r($result);
 	}
 }
