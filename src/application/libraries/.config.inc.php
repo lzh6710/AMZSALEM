@@ -57,12 +57,10 @@
     * may be possible to simply re-use an autoload mechanism defined by other frameworks
     * (provided library is installed in the PHP include path), and so classes may just 
     * be loaded even when this function is removed
-    ***********************************************************************/   
-     function __autoload($className){
+    ***********************************************************************/ 
+     function amz_autoload($className){
         $filePath = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
         $includePaths = explode(PATH_SEPARATOR, get_include_path());
-		echo 'sssssssssssssssssss';
-		echo $filePath;	
         foreach($includePaths as $includePath){
             if(file_exists($includePath . DIRECTORY_SEPARATOR . $filePath)){
                 require_once $filePath;
@@ -70,6 +68,7 @@
             }
         }
     }
+	 spl_autoload_register ('amz_autoload'); 
     
 
 

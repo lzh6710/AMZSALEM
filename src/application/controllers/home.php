@@ -20,16 +20,18 @@ class Home extends CI_Controller {
 	{
 		check_login(false);
 		
+		$this->layout->view('home');
+	}
+	
+	public function SubmitFeed() {
 		try{
-			$result=$this->amazon_api->PostFeed();
-             }
+			$result=$this->amazon_api->SubmitFeed();
+        }
 		catch(Exception $e)
 		{
 			echo $e->getMessage();
 		}
  
 		print_r($result);
-		
-		$this->layout->view('home');
 	}
 }
