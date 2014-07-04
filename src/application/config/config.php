@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://amz.com/';
+$config['base_url']	= 'http://127.0.01/AMZSALEM/src/';
 
 /*
 |--------------------------------------------------------------------------

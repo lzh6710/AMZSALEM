@@ -42,8 +42,8 @@
     * Only needed when running library from local directory.
     * If library is installed in PHP include path, this is not needed
     ***********************************************************************/   
-    set_include_path(get_include_path() . PATH_SEPARATOR . '../.'. PATH_SEPARATOR . "C:\xampp\htdocs\AMZSALEM\src\application\api\amz". PATH_SEPARATOR . "C:\xampp\htdocs\AMZSALEM\src\application\api\amz\MarketplaceWebService");    
-    
+    set_include_path(get_include_path() . PATH_SEPARATOR . 'C:\xampp\htdocs\AMZSALEM\src\amz' . PATH_SEPARATOR ."C:\xampp\htdocs\AMZSALEM\src\amz\MarketplaceWebService");
+
    /************************************************************************ 
     * OPTIONAL ON SOME INSTALLATIONS  
     * 
@@ -61,6 +61,8 @@
      function __autoload($className){
         $filePath = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
         $includePaths = explode(PATH_SEPARATOR, get_include_path());
+		echo 'sssssssssssssssssss';
+		echo $filePath;	
         foreach($includePaths as $includePath){
             if(file_exists($includePath . DIRECTORY_SEPARATOR . $filePath)){
                 require_once $filePath;
@@ -68,6 +70,6 @@
             }
         }
     }
-  
+    
 
 
