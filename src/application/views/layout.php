@@ -96,7 +96,7 @@
 		                        <li><a href="#">View</a></li>
 		                        <li><a href="#">Add New Product</a></li>
 		                        <li><a href="#">Export File</a></li>
-								<li><a href="<?php echo base_url()?>home/SubmitFeed">SubmitFeed</a></li>
+								<li><a href="<?php echo base_url()?>home/submitFeed">submitFeed</a></li>
 		                    </ul>
 		                </li>
 		          </ul>
