@@ -793,7 +793,6 @@ class MarketplaceWebService_Client implements MarketplaceWebService_Interface
    */
   private function invoke(array $converted, $dataHandle = null, $contentMd5 = null)
   {
-  	
   	$parameters = $converted[CONVERTED_PARAMETERS_KEY];
     $actionName = $parameters["Action"];
     $response = array();
@@ -910,6 +909,7 @@ class MarketplaceWebService_Client implements MarketplaceWebService_Interface
 
     $this->curlClient = curl_init();
     curl_setopt_array($this->curlClient, $curlOptions);
+    // trieu add
     curl_setopt ($this->curlClient, CURLOPT_SSL_VERIFYHOST, 0);
     curl_setopt ($this->curlClient, CURLOPT_SSL_VERIFYPEER, 0);
 

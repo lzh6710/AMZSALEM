@@ -194,8 +194,10 @@ abstract class MarketplaceWebService_Model
                     if ($element->length == 1) {
                     	switch($this->fields[$fieldName]['FieldType']) {
                     		case 'DateTime':
-                    			$data = new DateTime($element->item(0)->data, 
+                    			if ($element->item(0)->data != "string") {
+                    				$data = new DateTime($element->item(0)->data, 
                     				new DateTimeZone('UTC'));
+                    			}
                     			break;
                     		case 'bool':
                     			$value = $element->item(0)->data;
