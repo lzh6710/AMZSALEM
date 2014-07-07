@@ -1,2 +1,10 @@
 checktool:
 https://mws.amazonservices.jp/scratchpad/index.html
+sample
+https://forums.aws.amazon.com/thread.jspa?threadID=47878
+
+web mau -> add product
+Storefront URL: https://user10664.trial.cirkuit.net/
+Admin Back Office URL: https://user10664.trial.cirkuit.net/cirkuit/
+Username: user10664
+Password: pAHUqUGU
