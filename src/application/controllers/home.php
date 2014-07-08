@@ -39,7 +39,7 @@ class Home extends CI_Controller {
 			$feed = $this->parser->parse('xml/submitFeed_template', $data, TRUE);
 			//$result=$this->amazon_api->submitFeed($feed);
 			//$result=$this->amazon_api->getFeedSubmissionList();
-			$this->amazon_api->getFeedSubmissionResult('1045696523');
+			$result= $this->amazon_api->getFeedSubmissionResult('1045696523');
         }
 		catch(Exception $e)
 		{
