@@ -818,7 +818,6 @@ class MarketplaceWebService_Client implements MarketplaceWebService_Interface
       do {
         try {
           $response = $this->performRequest($actionName, $converted, $dataHandle, $contentMd5);
-          
           $httpStatus = $response['Status'];
           
           switch ($httpStatus) {
@@ -917,6 +916,8 @@ class MarketplaceWebService_Client implements MarketplaceWebService_Interface
     $this->errorResponseBody = @fopen('php://memory', 'rw+');
 
     $httpResponse = curl_exec($this->curlClient);
+    var_dump($httpResponse, '<br>=============<br>');
+    var_dump($curlOptions, '<br>=============<br>');
     rewind($this->headerContents);
     $header = stream_get_contents($this->headerContents);
 
@@ -940,7 +941,7 @@ class MarketplaceWebService_Client implements MarketplaceWebService_Interface
         $httpResponse = $this->getDownloadResponseDocument($action, $parsedHeader);
     	}
     }
-    
+    var_dump($parsedHeader, '<br>=============<br>');
     // Cleanup open streams and cURL instance.
     @fclose($this->headerContents);
     @fclose($this->errorResponseBody);

@@ -151,6 +151,7 @@ class Amazon_api
 		$result = array();
 		try {
 			$response = $service->getFeedSubmissionList($request);
+			
 			if ($response->isSetGetFeedSubmissionListResult()) {
 				$getFeedSubmissionListResult = $response->getGetFeedSubmissionListResult();
 				if ($getFeedSubmissionListResult->isSetNextToken())
@@ -240,7 +241,7 @@ class Amazon_api
 		$result = array();
 		try {
 			$response = $service->getFeedSubmissionResult($request);
-
+			var_dump($response);
 			if ($response->isSetGetFeedSubmissionResultResult()) {
 				$getFeedSubmissionResultResult = $response->getGetFeedSubmissionResultResult();
 				if ($getFeedSubmissionResultResult->isSetContentMd5()) {
