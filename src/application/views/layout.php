@@ -93,8 +93,8 @@
 		                        <span>Products</span>
 		                    <span class="dcjq-icon"></span></a>
 		                    <ul class="sub" style="display: none;">
-		                        <li><a href="#">View</a></li>
-		                        <li><a href="#">Add New Product</a></li>
+		                        <li><a href="<?php echo base_url()?>product">View</a></li>
+		                        <li><a href="<?php echo base_url()?>product/add">Add New Product</a></li>
 		                        <li><a href="#">Export File</a></li>
 								<li><a href="<?php echo base_url()?>home/submitFeed">submitFeed</a></li>
 		                    </ul>

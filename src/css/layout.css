@@ -612,3 +612,7 @@ element.style {
     margin-top: 10px;
     color: #000;
 }
+
+#cke_description {
+    margin-top: 3px;
+}
