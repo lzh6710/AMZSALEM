@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
+<Header>
+    <DocumentVersion>1.0</DocumentVersion>
+    <MerchantIdentifier>A2T7KN13JZ9T6W</MerchantIdentifier>
+</Header>
+<MessageType>Product</MessageType>
+<PurgeAndReplace>false</PurgeAndReplace>
+<Message>
+    <MessageID>1</MessageID>
+    <OperationType>Update</OperationType>
+    <Product>
+        <SKU>Z5-ED6G-Y71F-2</SKU>
+        <StandardProductID>
+            <Type>ASIN</Type>
+            <Value>B001P4WGQ6</Value>
+        </StandardProductID>
+        <LaunchDate>2012-06-18T04:59:29+01:00</LaunchDate>
+        <DescriptionData>
+            <Title>Aberfeldy 12 Year Old / 70cl</Title>
+            <Brand>Aberfeldy</Brand>
+            <Description>An award winning Eastern Highland malt that was almost unknown until it was bought by Bacardi in 1998, Aberfeldy's main claim to fame is as the heart of the excellent Dewar's blend.  Clean and polished malt with a touch of honey and spice.    Web-Exclusive Price!</Description>
+            <BulletPoint>12 Years Old</BulletPoint>
+            <BulletPoint>Bottled by Distillery Bottling</BulletPoint>
+            <PackageWeight unitOfMeasure="KG">1.50</PackageWeight>
+            <Manufacturer>Aberfeldy</Manufacturer>
+            <ItemType>AlcoholicBeverages</ItemType>
+            <RecommendedBrowseNode>60583031</RecommendedBrowseNode>
+        </DescriptionData>
+        <ProductData>
+            <FoodAndBeverages>
+                <ProductType>
+                    <AlcoholicBeverages>
+                        <CountryProducedIn>Scotland</CountryProducedIn>
+                        <RegionOfOrigin>Highland</RegionOfOrigin>
+                        <AlcoholContent unitOfMeasure="percent_by_volume">40.00</AlcoholContent>
+                    </AlcoholicBeverages>
+                </ProductType>
+            </FoodAndBeverages>
+        </ProductData>
+    </Product>
+</Message>
+</AmazonEnvelope>
