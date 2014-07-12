@@ -12,3 +12,10 @@
 		<label for="colorMap" class="error"><?php echo form_error('colorMap'); ?></label>
 	</div>
 </div>
+<div class="form-group ">
+	<label for="specialSizeType" class="control-label col-lg-3">SpecialSizeType</label>
+	<div class="col-lg-6">
+		<input class="form-control " value="<?php echo $product->specialSizeType ?>" id="specialSizeType" name="specialSizeType" type="text">
+		<label for="specialSizeType" class="error"><?php echo form_error('specialSizeType'); ?></label>
+	</div>
+</div>
