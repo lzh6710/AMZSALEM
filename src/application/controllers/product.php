@@ -24,6 +24,27 @@ class Product extends CI_Controller {
 		$data['product_list'] = $product_list;
 		$this->layout->view('product_list', $data);
 	}
+	
+	public function categories()
+	{
+		$data = array();
+		$this->layout->view('product_categories', $data);
+	}
+	
+	public function add_categories($categories)
+	{
+		$data = array();
+		$data['is_edit'] = false;
+		$data['categories'] = $categories;
+		$productModel = new ProductModel();
+		
+		if (!$this->input->post()) {
+			$data['product'] = $productModel;
+			$this->layout->view('product_form', $data);
+		} else {
+			$this->validation($data, $productModel, false);
+		}
+	}
 
 	public function add()
 	{

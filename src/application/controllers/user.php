@@ -43,9 +43,9 @@ class User extends CI_Controller {
 			if ($user->result_count() == 0) {
 				echo json_encode(array('st' => 0, 'msg' => 'Invalid username or password'));
 			} else {
-				if ($user->isActive == 0) {
-					echo json_encode(array('st' => 0, 'msg' => 'This account is locked'));
-				} else {
+// 				if ($user->isActive == 0) {
+// 					echo json_encode(array('st' => 0, 'msg' => 'This account is locked'));
+// 				} else {
 					$array = array(
 							'username'   => $user->username,
 							'name'       => $user->name,
@@ -78,7 +78,7 @@ class User extends CI_Controller {
 					$this->session->set_userdata('loginInfo', $array);
 					$url = site_url("home");
 					echo json_encode(array('st' => 1, 'msg' => 'Successfully', 'url' => $url));
-				}
+// 				}
 			}
 		}
 	}

@@ -106,6 +106,7 @@
 								<label for="manufacturer" class="error"><?php echo form_error('manufacturer'); ?></label>
 							</div>
 						</div>
+						<?php $this->load->view('product/'.$categories, $product); ?>
 						<div class="form-group ">
 							<label for="description" class="control-label col-lg-3">Product Description</label>
 							<div class="col-lg-6">
