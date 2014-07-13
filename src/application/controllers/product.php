@@ -87,7 +87,9 @@ class Product extends CI_Controller {
 		$product = $productModel->findBySKU($sku);
 		$product->productData = new SimpleXMLElement($product->productData);
 		$imageModel = new ImageModel();
+		$priceModel = new PriceModel();
 		$product->imageList = $imageModel->findBySKU($sku);
+		$product->price = $priceModel->findBySKU($sku);
 		$data['categories'] = $product->categories;
 		$data['product'] = $product;
 		
@@ -138,6 +140,33 @@ class Product extends CI_Controller {
 	
 				$imageModel->save_or_update();
 			}
+			
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+	}
+	
+	public function update_price() {
+		$price = array(
+				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
+				'SKU' => $this->input->post('SKU'),
+				'currency' => $this->input->post('currency'),
+				'price' => $this->input->post('price')
+				);
+		$feed = $this->parser->parse('xml/product_price', $price, TRUE);
+		echo $feed;
+		try {
+			$result = $this->amazon_api->submitPrice($feed);
+			
+			$priceModel = new PriceModel();
+			
+			$priceModel->SKU = $price['SKU'];
+			$priceModel->currency = $price['currency'];
+			$priceModel->price = $price['price'];
+			$priceModel->feedSubmissionId = $result['FeedSubmissionId'];
+			$priceModel->feedStatus = $result['FeedProcessingStatus'];
+			
+			$priceModel->save_or_update();
 			
 		} catch (Exception $e) {
 			echo $e->getMessage();
@@ -223,7 +252,7 @@ class Product extends CI_Controller {
 				$feed = $this->parser->parse('xml/product_template', $data, TRUE);
 				echo "<textarea>".$feed."</textarea>";
 					
-				$result=$this->amazon_api->submitFeed($feed);
+				$result=$this->amazon_api->submitProduct($feed);
 				$productModel->feedSubmissionId = $result['FeedSubmissionId'];
 				$productModel->feedStatus = $result['FeedProcessingStatus'];
 	

@@ -27,37 +27,28 @@ class Amazon_api
 
 	//===================================POST PRODUCT=============================================================
 
-	function submitFeed($feed) {
-		$marketplaceIdArray = array("Id" => array('A1VC38T7YXB528'));
-
-		$feedHandle = @fopen('php://temp', 'rw+');
-		fwrite($feedHandle, $feed);
-		rewind($feedHandle);
-		$request = new MarketplaceWebService_Model_SubmitFeedRequest();
-		$request->setMerchant(MERCHANT_ID);
-		$request->setMarketplaceIdList($marketplaceIdArray);
-		$request->setFeedType('_POST_PRODUCT_DATA_');
-		$request->setContentMd5(base64_encode(md5(stream_get_contents($feedHandle), true)));
-		rewind($feedHandle);
-		$request->setPurgeAndReplace(false);
-		$request->setFeedContent($feedHandle);
-		rewind($feedHandle);
-			
-		return $this->invokeSubmitFeed($this->service, $request);
-
-		@fclose($feedHandle);
+	function submitProduct($feed) {
+		return $this->submitFeed($feed, '_POST_PRODUCT_DATA_');
 	}
 	
 	function submitImage($feed) {
-		$marketplaceIdArray = array("Id" => array('A1VC38T7YXB528'));
+		return $this->submitFeed($feed, '_POST_PRODUCT_IMAGE_DATA_');
+	}
 	
+	function submitPrice($feed) {
+		return $this->submitFeed($feed, '_POST_PRODUCT_PRICING_DATA_');
+	}
+	
+	function submitFeed($feed, $type) {
+		$marketplaceIdArray = array("Id" => array('A1VC38T7YXB528'));
+
 		$feedHandle = @fopen('php://temp', 'rw+');
 		fwrite($feedHandle, $feed);
 		rewind($feedHandle);
 		$request = new MarketplaceWebService_Model_SubmitFeedRequest();
 		$request->setMerchant(MERCHANT_ID);
 		$request->setMarketplaceIdList($marketplaceIdArray);
-		$request->setFeedType('_POST_PRODUCT_IMAGE_DATA_');
+		$request->setFeedType($type);
 		$request->setContentMd5(base64_encode(md5(stream_get_contents($feedHandle), true)));
 		rewind($feedHandle);
 		$request->setPurgeAndReplace(false);
@@ -65,18 +56,11 @@ class Amazon_api
 		rewind($feedHandle);
 			
 		return $this->invokeSubmitFeed($this->service, $request);
-	
+
 		@fclose($feedHandle);
 	}
 
 	/**
-	 * Submit Feed Action Sample
-	 * Uploads a file for processing together with the necessary
-	 * metadata to process the file, such as which type of feed it is.
-	 * PurgeAndReplace if true means that your existing e.g. inventory is
-	 * wiped out and replace with the contents of this feed - use with
-	 * caution (the default is false).
-	 *
 	 * @param MarketplaceWebService_Interface $service instance of MarketplaceWebService_Interface
 	 * @param mixed $request MarketplaceWebService_Model_SubmitFeed or array of parameters
 	 */
@@ -172,8 +156,6 @@ class Amazon_api
 	}
 
 	/**
-	 * Get Feed Submission List Action Sample
-	 * returns a list of feed submission identifiers and their associated metadata
 	 *
 	 * @param MarketplaceWebService_Interface $service instance of MarketplaceWebService_Interface
 	 * @param mixed $request MarketplaceWebService_Model_GetFeedSubmissionList or array of parameters
@@ -266,8 +248,6 @@ class Amazon_api
 	}
 
 	/**
-	 * Get Feed Submission Result Action Sample
-	 * retrieves the feed processing report
 	 *
 	 * @param MarketplaceWebService_Interface $service instance of MarketplaceWebService_Interface
 	 * @param mixed $request MarketplaceWebService_Model_GetFeedSubmissionResult or array of parameters

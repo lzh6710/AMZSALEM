@@ -21,6 +21,7 @@
 				 </span>
 			</header>
 			<div class="panel-body">
+				<?php  $this->load->view('product/price_quantity_edit', $product); ?>
 				<div class="col-lg-8">
 					<table class="table table-bordered">
 						<tbody>
@@ -40,10 +41,22 @@
 								<td>Country</td>
 								<td><?php echo $product->country; ?></td>
 							</tr>
+							<?php if (isset($product->price) && ($product->price->feedStatus == '_SUCCESS_')) {?>
+							<tr>
+								<td>MSRP (<?php echo $product->price->currency;?>)</td>
+								<td><?php echo $product->price->price; ?></td>
+							</tr>
+							<?php } else if (($product->price->feedStatus == '_SUBMITTED_')){?>
+							<tr>
+								<td>MSRP (<?php echo $product->price->currency;?>)</td>
+								<td><?php echo $product->price->price; ?>(Pending)</td>
+							</tr>
+							<?php } else {?>
 							<tr>
 								<td>MSRP (USD)</td>
 								<td><?php echo $product->MSRP; ?></td>
 							</tr>
+							<?php }?>
 							<tr>
 								<td>Manufacturer</td>
 								<td><?php echo $product->manufacturer; ?></td>
