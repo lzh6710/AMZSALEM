@@ -12,33 +12,22 @@
 		<Product>
 			<SKU>{SKU}</SKU>
 			<StandardProductID>
-				<Type>ASIN</Type>
-				<Value>{ASIN}</Value>
+				<Type>UPC</Type>
+				<Value>{UPC}</Value>
 			</StandardProductID>
 			<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
 			<ItemPackageQuantity>{ItemPackageQuantity}</ItemPackageQuantity>
-			<NumberOfItems>{NumberOfItems}</NumberOfItems>
 			<DescriptionData>
 				<Title>{Title}</Title>
 				<Brand>{Brand}</Brand>
 				<Description>{Description}</Description>
 				<BulletPoint>{Country}</BulletPoint>
-				<MSRP currency="USD">{MSRP}</MSRP>
-				<PackageWeight unitOfMeasure="KG">{PackageWeight}</PackageWeight>
-				<ShippingWeight unitOfMeasure="KG">{ShippingWeight}</ShippingWeight>
+				<MSRP currency="{currency}">{MSRP}</MSRP>
 				<Manufacturer>{Manufacturer}</Manufacturer>
+				<MfrPartNumber>{MfrPartNumber}</MfrPartNumber>
 				<ItemType>{ItemType}</ItemType>
 			</DescriptionData>
-			<ProductData>
-				<Health>
-					<ProductType>
-						<HealthMisc>
-							<Ingredients>Example Ingredients</Ingredients>
-							<Directions>Example Directions</Directions>
-						</HealthMisc>
-					</ProductType>
-				</Health>
-			</ProductData>
+			{ProductData}
 		</Product>
 	</Message>
 </AmazonEnvelope>

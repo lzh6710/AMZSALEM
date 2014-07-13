@@ -37,31 +37,10 @@
 							</div>
 						</div>
 						<div class="form-group ">
-							<label for="SKU" class="control-label col-lg-3">SKU (required)</label>
-							<div class="col-lg-6">
-								<input class="form-control" value="<?php echo $product->SKU ?>" id="SKU"  name="SKU"  type="text">
-								<label for="SKU" class="error"><?php echo form_error('SKU'); ?></label>
-							</div>
-						</div>
-						<div class="form-group ">
-							<label for="ASIN" class="control-label col-lg-3">ASIN (required)</label>
-							<div class="col-lg-6">
-								<input class="form-control" value="<?php echo $product->ASIN ?>" id="ASIN"  name="ASIN"  type="text">
-								<label for="ASIN" class="error"><?php echo form_error('ASIN'); ?></label>
-							</div>
-						</div>
-						<div class="form-group ">
 							<label for="itemPackageQuantity" class="control-label col-lg-3">Item Package Quantity</label>
 							<div class="col-lg-6">
 								<input class="form-control" value="<?php echo $product->itemPackageQuantity ?>" id="itemPackageQuantity" name="itemPackageQuantity" type="text">
 								<label for="itemPackageQuantity" class="error"><?php echo form_error('itemPackageQuantity'); ?></label>
-							</div>
-						</div>
-						<div class="form-group ">
-							<label for="numberOfItems" class="control-label col-lg-3">Number Of Items</label>
-							<div class="col-lg-6">
-								<input class="form-control" value="<?php echo $product->numberOfItems ?>" id="numberOfItems" name="numberOfItems" type="text">
-								<label for="numberOfItems" class="error"><?php echo form_error('numberOfItems'); ?></label>
 							</div>
 						</div>
 						<div class="form-group ">
@@ -79,26 +58,27 @@
 							</div>
 						</div>
 						<div class="form-group ">
-							<label for="MSRP" class="control-label col-lg-3">MSRP (USD)</label>
+							<label for="currency" class="control-label col-lg-3">Currency</label>
+							<div class="col-lg-6">
+								<select id="currency" name="currency">
+									<option value="USD" <?php if ($product->currency == 'USD'){?>selected<?php }?>>USD</option>
+									<option value="GBP" <?php if ($product->currency == 'GBP'){?>selected<?php }?>>GBP</option>
+									<option value="EUR" <?php if ($product->currency == 'EUR'){?>selected<?php }?>>EUR</option>
+									<option value="JPY" <?php if ($product->currency == 'JPY'){?>selected<?php }?>>JPY</option>
+									<option value="CAD" <?php if ($product->currency == 'CAD'){?>selected<?php }?>>CAD</option>
+									<option value="DEFAULT" <?php if ($product->currency == 'DEFAULT'){?>selected<?php }?>>DEFAULT</option>
+								</select>
+								<label for="currency" class="error"><?php echo form_error('currency'); ?></label>
+							</div>
+						</div>
+						<div class="form-group ">
+							<label for="MSRP" class="control-label col-lg-3">MSRP</label>
 							<div class="col-lg-6">
 								<input class="form-control " value="<?php echo $product->MSRP ?>" id="MSRP" name="MSRP" type="text">
 								<label for="MSRP" class="error"><?php echo form_error('MSRP'); ?></label>
 							</div>
 						</div>
-						<div class="form-group ">
-							<label for="packageWeight"  class="control-label col-lg-3">Package Weight (KG)</label>
-							<div class="col-lg-6">
-								<input class="form-control " value="<?php echo $product->packageWeight ?>" id="packageWeight" name="packageWeight" type="text">
-								<label for="packageWeight" class="error"><?php echo form_error('packageWeight'); ?></label>
-							</div>
-						</div>
-						<div class="form-group ">
-							<label for="shippingWeight" class="control-label col-lg-3">Shipping Weight (KG)</label>
-							<div class="col-lg-6">
-								<input class="form-control " value="<?php echo $product->shippingWeight ?>" id="shippingWeight" name="shippingWeight" type="text">
-								<label for="shippingWeight" class="error"><?php echo form_error('shippingWeight'); ?></label>
-							</div>
-						</div>
+						
 						<div class="form-group ">
 							<label for="manufacturer" class="control-label col-lg-3">Manufacturer</label>
 							<div class="col-lg-6">
@@ -114,9 +94,6 @@
 					                <?php echo $product->description ?>
 					            </textarea>
 								<label for="description" class="error"><?php echo form_error('description'); ?></label>
-								<script>
-                					CKEDITOR.replace( 'description');
-            					</script>
 							</div>
 						</div>
 						<div class="form-group">
@@ -130,6 +107,7 @@
 							</div>
 						</div>
 					</div>
+					<input type="hidden" value="<?php echo $categories;?>" name="categories" />
 				</form>
 			</div>
 		</section>

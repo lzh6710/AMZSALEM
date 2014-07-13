@@ -27,7 +27,23 @@ class Amazon_api
 
 	//===================================POST PRODUCT=============================================================
 
-	function submitFeed($feed) {
+	function submitProduct($feed) {
+		return $this->submitFeed($feed, '_POST_PRODUCT_DATA_');
+	}
+	
+	function submitImage($feed) {
+		return $this->submitFeed($feed, '_POST_PRODUCT_IMAGE_DATA_');
+	}
+	
+	function submitPrice($feed) {
+		return $this->submitFeed($feed, '_POST_PRODUCT_PRICING_DATA_');
+	}
+	
+	function submitInventory($feed) {
+		return $this->submitFeed($feed, '_POST_INVENTORY_AVAILABILITY_DATA_');
+	}
+	
+	function submitFeed($feed, $type) {
 		$marketplaceIdArray = array("Id" => array('A1VC38T7YXB528'));
 
 		$feedHandle = @fopen('php://temp', 'rw+');
@@ -36,7 +52,7 @@ class Amazon_api
 		$request = new MarketplaceWebService_Model_SubmitFeedRequest();
 		$request->setMerchant(MERCHANT_ID);
 		$request->setMarketplaceIdList($marketplaceIdArray);
-		$request->setFeedType('_POST_PRODUCT_DATA_');
+		$request->setFeedType($type);
 		$request->setContentMd5(base64_encode(md5(stream_get_contents($feedHandle), true)));
 		rewind($feedHandle);
 		$request->setPurgeAndReplace(false);
@@ -49,13 +65,6 @@ class Amazon_api
 	}
 
 	/**
-	 * Submit Feed Action Sample
-	 * Uploads a file for processing together with the necessary
-	 * metadata to process the file, such as which type of feed it is.
-	 * PurgeAndReplace if true means that your existing e.g. inventory is
-	 * wiped out and replace with the contents of this feed - use with
-	 * caution (the default is false).
-	 *
 	 * @param MarketplaceWebService_Interface $service instance of MarketplaceWebService_Interface
 	 * @param mixed $request MarketplaceWebService_Model_SubmitFeed or array of parameters
 	 */
@@ -128,6 +137,17 @@ class Amazon_api
 
 	//===================================GET LIST PRODUCT=============================================================
 
+	function getFeedSubmissionListById($ids) {
+		$parameters = array (
+				'Merchant' => MERCHANT_ID
+		);
+	
+		$request = new MarketplaceWebService_Model_GetFeedSubmissionListRequest($parameters);
+		$idList = new MarketplaceWebService_Model_IdList();
+		$idList->setId($ids);
+		$request->setFeedSubmissionIdList($idList);
+		return $this->invokeGetFeedSubmissionList($this->service, $request);
+	}
 
 	function getFeedSubmissionList() {
 		$parameters = array (
@@ -140,8 +160,6 @@ class Amazon_api
 	}
 
 	/**
-	 * Get Feed Submission List Action Sample
-	 * returns a list of feed submission identifiers and their associated metadata
 	 *
 	 * @param MarketplaceWebService_Interface $service instance of MarketplaceWebService_Interface
 	 * @param mixed $request MarketplaceWebService_Model_GetFeedSubmissionList or array of parameters
@@ -217,20 +235,23 @@ class Amazon_api
 	//=========================================GET PRODUCT=======================================================
 
 	function getFeedSubmissionResult($feedSubmissionId) {
+		$fileHandle = fopen('php://memory', 'rw+');
 		$parameters = array (
 				'Merchant' => MERCHANT_ID,
-				'FeedSubmissionId' => $feedSubmissionId,
-				'FeedSubmissionResult' => @fopen('php://memory', 'rw+'),
+				'FeedSubmissionId' => $feedSubmissionId
 		);
 		
 		$request = new MarketplaceWebService_Model_GetFeedSubmissionResultRequest($parameters);
+		$request->setFeedSubmissionResult($fileHandle);
 		
-		return $this->invokeGetFeedSubmissionResult($this->service, $request);
+		$result = $this->invokeGetFeedSubmissionResult($this->service, $request);
+		rewind($fileHandle);
+		$responseStr = stream_get_contents($fileHandle);
+		$responseXML = new SimpleXMLElement($responseStr);
+		return $responseXML;
 	}
 
 	/**
-	 * Get Feed Submission Result Action Sample
-	 * retrieves the feed processing report
 	 *
 	 * @param MarketplaceWebService_Interface $service instance of MarketplaceWebService_Interface
 	 * @param mixed $request MarketplaceWebService_Model_GetFeedSubmissionResult or array of parameters
@@ -241,7 +262,6 @@ class Amazon_api
 		$result = array();
 		try {
 			$response = $service->getFeedSubmissionResult($request);
-			var_dump($response);
 			if ($response->isSetGetFeedSubmissionResultResult()) {
 				$getFeedSubmissionResultResult = $response->getGetFeedSubmissionResultResult();
 				if ($getFeedSubmissionResultResult->isSetContentMd5()) {

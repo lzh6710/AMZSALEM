@@ -1,0 +1,9 @@
+<Message>
+	<MessageID>{Id}</MessageID>
+	<OperationType>Update</OperationType>
+	<ProductImage>
+		<SKU>{SKU}</SKU>
+		<ImageType>{ImageType}</ImageType>
+		<ImageLocation>{ImageLocation}</ImageLocation>
+	</ProductImage>
+</Message>
