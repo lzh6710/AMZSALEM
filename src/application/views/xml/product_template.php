@@ -22,7 +22,7 @@
 				<Brand>{Brand}</Brand>
 				<Description>{Description}</Description>
 				<BulletPoint>{Country}</BulletPoint>
-				<MSRP currency="USD">{MSRP}</MSRP>
+				<MSRP currency="{currency}">{MSRP}</MSRP>
 				<Manufacturer>{Manufacturer}</Manufacturer>
 				<MfrPartNumber>{MfrPartNumber}</MfrPartNumber>
 				<ItemType>{ItemType}</ItemType>

@@ -14,7 +14,6 @@
 	        <span>Update Image</span>
     </span>
 	<form id="productForm" method="POST">
-		<input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 		<!-- The fileinput-button span is used to style the file input field as button -->
 	    <span class="btn btn-success fileinput-button">
 	        <i class="glyphicon glyphicon-plus"></i>

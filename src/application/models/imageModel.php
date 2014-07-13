@@ -43,7 +43,7 @@ class ImageModel extends DataMapper {
 		$imageModel = new ImageModel();
 		$imageModel->where('SKU', $this->SKU);
 		$imageModel->where('ImageType', $this->ImageType);
-		if ($imageModel->get()) {
+		if ($imageModel->get(1)->result_count() == 1) {
 			// update
 			$imageModel->update(array(
 					'ImageLocation' => $this->ImageLocation,

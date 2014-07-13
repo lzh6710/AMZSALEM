@@ -53,7 +53,7 @@
 							</tr>
 							<?php } else {?>
 							<tr>
-								<td>MSRP (USD)</td>
+								<td>MSRP (<?php echo $product->currency;?>)</td>
 								<td><?php echo $product->MSRP; ?></td>
 							</tr>
 							<?php }?>
@@ -65,13 +65,33 @@
 								<td>Product Description</td>
 								<td><?php echo $product->description; ?></td>
 							</tr>
+							<?php if (isset($product->inventory)) {?>
+								<?php if ($product->inventory->feedStatus != '_SUCCESS_') {?>
+								<tr>
+									<td colspan="2">
+										<b>Inventory Pending (waiting amazon verify).</b>
+									</td>
+								</tr>
+								<?php }?>
+								<tr>
+									<td>Quantity</td>
+									<td><?php echo $product->inventory->quantity; ?></td>
+								</tr>
+								<tr>
+									<td>FulfillmentLatency</td>
+									<td><?php echo $product->inventory->fulfillmentLatency; ?></td>
+								</tr>
+							<?php }?>
 						</tbody>
 					</table>
 					<?php  $this->load->view('product/'.$categories.'_edit', $product); ?>
 				</div>
 				<?php  $this->load->view('product/upload_image', $product); ?>
 			</div>
-			<input type="hidden" name="SKU" value="<?php echo $product->SKU;?>" />
+			<form id="hiddenForm" class="hidden" method="POST">
+				<input type="hidden" name="SKU" value="<?php echo $product->SKU;?>" />
+				<input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+			</form>
 		</section>
 	</div>
 </div>

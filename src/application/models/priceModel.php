@@ -42,7 +42,7 @@ class PriceModel extends DataMapper {
 	function save_or_update() {
 		$priceModel = new PriceModel();
 		$priceModel->where('SKU', $this->SKU);
-		if ($priceModel->get()) {
+		if ($priceModel->get(1)->result_count() == 1) {
 			// update
 			$priceModel->update(array(
 					'price' => $this->price,

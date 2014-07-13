@@ -5,9 +5,10 @@ $(document).ready(function() {
 	
 	$('#refresh_status').click(function(){
 	  $.ajax({
-	    url: '/product/refresh_product_status',
+	    url: '/status/refresh_by_type/inventory',
 	    success: function() {
-	      location.reload();
+	      console.log(arguments);
+//	      location.reload();
 	    }
 	  });
 	  return false;

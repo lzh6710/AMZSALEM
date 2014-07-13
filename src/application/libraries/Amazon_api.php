@@ -39,6 +39,10 @@ class Amazon_api
 		return $this->submitFeed($feed, '_POST_PRODUCT_PRICING_DATA_');
 	}
 	
+	function submitInventory($feed) {
+		return $this->submitFeed($feed, '_POST_INVENTORY_AVAILABILITY_DATA_');
+	}
+	
 	function submitFeed($feed, $type) {
 		$marketplaceIdArray = array("Id" => array('A1VC38T7YXB528'));
 

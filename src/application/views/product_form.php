@@ -58,12 +58,27 @@
 							</div>
 						</div>
 						<div class="form-group ">
-							<label for="MSRP" class="control-label col-lg-3">MSRP (USD)</label>
+							<label for="currency" class="control-label col-lg-3">Currency</label>
+							<div class="col-lg-6">
+								<select id="currency" name="currency">
+									<option value="USD" <?php if ($product->currency == 'USD'){?>selected<?php }?>>USD</option>
+									<option value="GBP" <?php if ($product->currency == 'GBP'){?>selected<?php }?>>GBP</option>
+									<option value="EUR" <?php if ($product->currency == 'EUR'){?>selected<?php }?>>EUR</option>
+									<option value="JPY" <?php if ($product->currency == 'JPY'){?>selected<?php }?>>JPY</option>
+									<option value="CAD" <?php if ($product->currency == 'CAD'){?>selected<?php }?>>CAD</option>
+									<option value="DEFAULT" <?php if ($product->currency == 'DEFAULT'){?>selected<?php }?>>DEFAULT</option>
+								</select>
+								<label for="currency" class="error"><?php echo form_error('currency'); ?></label>
+							</div>
+						</div>
+						<div class="form-group ">
+							<label for="MSRP" class="control-label col-lg-3">MSRP</label>
 							<div class="col-lg-6">
 								<input class="form-control " value="<?php echo $product->MSRP ?>" id="MSRP" name="MSRP" type="text">
 								<label for="MSRP" class="error"><?php echo form_error('MSRP'); ?></label>
 							</div>
 						</div>
+						
 						<div class="form-group ">
 							<label for="manufacturer" class="control-label col-lg-3">Manufacturer</label>
 							<div class="col-lg-6">

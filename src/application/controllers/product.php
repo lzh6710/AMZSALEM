@@ -31,53 +31,6 @@ class Product extends CI_Controller {
 		$this->layout->view('product_categories', $data);
 	}
 	
-	public function refresh_product_status()
-	{
-		$productModel = new ProductModel();
-		$product_list = $productModel->findByStatus('_SUBMITTED_');
-		$id_list = array();
-		foreach ($product_list as $product) {
-			array_push($id_list, $product->feedSubmissionId);
-		}
-		if ($id_list) {
-			try {
-				$result = $this->amazon_api->getFeedSubmissionListById($id_list);
-				if ($result['feedSubmissionInfoList']) {
-					$result = $this->update_products_status($result['feedSubmissionInfoList']);
-					
-					echo json_encode($result);
-				}
-			} catch (Exception $e)
-			{
-				echo $e->getMessage();
-			}
-		}
-	}
-	
-	private function update_products_status($product_feed_list) {
-		
-		$status_list = array();
-		foreach ($product_feed_list as $product_feed) {
-			array_push($status_list, $this->update_product_status($product_feed));
-		}
-		return $status_list;
-	}
-	
-	private function update_product_status($product_feed) {
-		if ($product_feed['FeedProcessingStatus'] != '_DONE_') {
-			return;
-		}
-		
-		$result = $this->amazon_api->getFeedSubmissionResult($product_feed['FeedSubmissionId']);
-		$productModel = new ProductModel();
-		if ($result->Message->ProcessingReport->ProcessingSummary->MessagesSuccessful) {
-			$productModel->updateStatus($product_feed['FeedSubmissionId'], '_SUCCESS_');
-			return array($product_feed['FeedSubmissionId'] => '_SUCCESS_');
-		} else {
-			$productModel->updateStatus($product_feed['FeedSubmissionId'], '_FAIL_');
-			return array($product_feed['FeedSubmissionId'] => '_FAIL_');
-		}
-	}
 	/** Edit product*/
 	public function edit()
 	{
@@ -88,8 +41,10 @@ class Product extends CI_Controller {
 		$product->productData = new SimpleXMLElement($product->productData);
 		$imageModel = new ImageModel();
 		$priceModel = new PriceModel();
+		$inventoryModel = new InventoryModel();
 		$product->imageList = $imageModel->findBySKU($sku);
 		$product->price = $priceModel->findBySKU($sku);
+		$product->inventory = $inventoryModel->findBySKU($sku);
 		$data['categories'] = $product->categories;
 		$data['product'] = $product;
 		
@@ -173,6 +128,32 @@ class Product extends CI_Controller {
 		}
 	}
 	
+	public function update_inventory() {
+		$inventory = array(
+				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
+				'SKU' => $this->input->post('SKU'),
+				'Quantity' => $this->input->post('quantity'),
+				'FulfillmentLatency' => $this->input->post('fulfillmentLatency')
+		);
+		$feed = $this->parser->parse('xml/product_inventory', $inventory, TRUE);
+		try {
+			$result = $this->amazon_api->submitInventory($feed);
+				
+			$inventoryModel = new InventoryModel();
+
+			$inventoryModel->SKU = $inventory['SKU'];
+			$inventoryModel->quantity = $inventory['Quantity'];
+			$inventoryModel->fulfillmentLatency = $inventory['FulfillmentLatency'];
+			$inventoryModel->feedSubmissionId = $result['FeedSubmissionId'];
+			$inventoryModel->feedStatus = $result['FeedProcessingStatus'];
+				
+			$inventoryModel->save_or_update();
+				
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+	}
+	
 	/** Add product */
 	public function add_categories($categories)
 	{
@@ -221,6 +202,7 @@ class Product extends CI_Controller {
 		$productModel->brand = trim($this->input->post('brand'));
 		$productModel->country = trim($this->input->post('country'));
 		$productModel->MSRP = trim($this->input->post('MSRP'));
+		$productModel->currency = trim($this->input->post('currency'));
 		$productModel->manufacturer = trim($this->input->post('manufacturer'));
 		$productModel->description = trim($this->input->post('description'));
 		$productModel->productData = $this->input->post('productData');
@@ -244,6 +226,7 @@ class Product extends CI_Controller {
 						'Brand' => $productModel->brand,
 						'Country' => $productModel->country,
 						'MSRP' => $productModel->MSRP,
+						'currency' => $productModel->currency,
 						'Manufacturer' => $productModel->manufacturer,
 						'MfrPartNumber' => '234-12',
 						'Description' => $productModel->description,
