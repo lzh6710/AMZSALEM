@@ -26,7 +26,12 @@ class Amazon_api
 	}
 
 	//===================================POST PRODUCT=============================================================
-
+	
+	//===================================UPDATE ORDER=============================================================
+	function updateOrderStatus($feed) {
+		return $this->submitFeed($feed, '_POST_ORDER_ACKNOWLEDGEMENT_DATA_');
+	}
+	
 	function submitProduct($feed) {
 		return $this->submitFeed($feed, '_POST_PRODUCT_DATA_');
 	}

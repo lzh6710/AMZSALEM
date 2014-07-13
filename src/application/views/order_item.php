@@ -162,7 +162,13 @@
                             
                         </tbody>
                     </table>
+                    <form id="cancelForm"method="post" action="<?php echo base_url()?>order/cancel">
+                    	<input type="hidden" id="orderId" name="orderId" value="<?php echo $order->amazonOrderId ?>" />
+                    	<input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+                    </form>
                      <div class="text-center invoice-btn">
+                     		<a href="javascript:void(0)" target="_blank" class="btn btn-success btn-lg">Accept </a>
+                     		<a id="cancel" href="javascript:$('#cancelForm').submit();" target="_blank" class="btn btn-danger btn-lg">Cancel </a>
                             <a href="javascript:void(0)" target="_blank" class="btn btn-primary btn-lg"><i class="fa fa-print"></i> Print </a>
                         </div>
             </div>

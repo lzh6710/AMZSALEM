@@ -11,12 +11,28 @@ class Order extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('parser');
 		check_login(false);
 	}
 
 	public function index()
 	{
 		$this->layout->view('order_list');
+	}
+	
+	public function cancel() {
+	    $id = $this->input->post('orderId');
+		$feed =  $this->parser->parse('xml/order_template', array(
+				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
+				'AmazonOrderID' => $id), TRUE);
+		echo $id;
+		echo($feed);
+		try {
+			$result = $this->amazon_api->updateOrderStatus($feed);
+		print_r($result);
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
 	}
 	
 	public function search() {

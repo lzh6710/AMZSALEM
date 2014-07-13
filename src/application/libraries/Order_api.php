@@ -24,15 +24,7 @@ class Order_api
 				$config
 		);
 	}
-	
-	//===================================UPDATE ORDER=============================================================
-	function updateOrderStatus() {
-		$request = new MarketplaceWebServiceOrders_Model_ListOrdersRequest();
-		$request->setSellerId(MERCHANT_ID);
-		$request->setMarketplaceId(MARKETPLACE_ID);
-		$request->setCreatedAfter("2014-07-01");
-		return $this->invokeListOrders($this->service, $request);
-	}
+
 
 	//===================================GET ITEMS LIST ORDER=============================================================
 	function getItemsListOrders($orderId) {
