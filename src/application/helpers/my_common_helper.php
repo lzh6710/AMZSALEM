@@ -29,3 +29,9 @@ function checkAjax() {
 
 
 
+function array_value($array, $index) {
+	if (isset($array[$index])) {
+		return $array[$index];
+	}
+	return null;
+}

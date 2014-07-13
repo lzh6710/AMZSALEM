@@ -13,9 +13,13 @@
 			<div class="panel-body">
 				<div class="clearfix fill">
 					<div class="btn-group">
-					<a href="<?php echo base_url()?>product/add">
+					<a href="<?php echo base_url()?>product/categories">
 						<button id="editable-sample_new" class="btn btn-primary">
 							Add New <i class="fa fa-plus"></i>
+						</button>
+						
+						<button id="refresh_status" class="btn btn-success">
+							Refresh Status <i class="fa fa-plus-circle"></i>
 						</button>
 					</a>
 					</div>
@@ -33,10 +37,11 @@
 					<thead>
 					<tr>
 						<th>SKU</th>
-						<th>ASIN</th>
+						<th>Categories</th>
 						<th>Product Name</th>
 						<th>Price (USD)</th>
 						<th>Status</th>
+						<th></th>
 					</tr>
 					</thead>
 					<tbody>
@@ -48,10 +53,16 @@
 									<input type=hidden value="<?php echo $product->SKU?>">
 								</a>
 							</td>
-							<td><?php echo $product->ASIN?></td>
+							<td><?php echo $product->categories?></td>
 							<td><?php echo $product->title?></td>
 							<td class="MSRP"><?php echo $product->MSRP?></td>
-							<td><span class="label <?php if ($product->status) { ?> label-success <?php } else { ?> label-warning <?php } ?> label-mini"><?php if ($product->status) { ?> Active <?php } else { ?> Wating <?php } ?></span></td>
+							<td>
+								<?php if ($product->feedStatus == "_SUCCESS_") { ?> 
+									<span class="label label-success label-mini"> Active </span>
+								<?php } else if ($product->feedStatus == "_FAIL_") { ?> 
+								<span class="label label-danger label-mini"> Fail </span>
+									<?php } else {?> 
+								<span class="label label-warning label-mini"> Waiting </span> <?php }?></td>
 						</tr>
 						<?php endforeach;?>
 					</tbody>

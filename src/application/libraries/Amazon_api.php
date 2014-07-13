@@ -47,6 +47,27 @@ class Amazon_api
 
 		@fclose($feedHandle);
 	}
+	
+	function submitImage($feed) {
+		$marketplaceIdArray = array("Id" => array('A1VC38T7YXB528'));
+	
+		$feedHandle = @fopen('php://temp', 'rw+');
+		fwrite($feedHandle, $feed);
+		rewind($feedHandle);
+		$request = new MarketplaceWebService_Model_SubmitFeedRequest();
+		$request->setMerchant(MERCHANT_ID);
+		$request->setMarketplaceIdList($marketplaceIdArray);
+		$request->setFeedType('_POST_PRODUCT_IMAGE_DATA_');
+		$request->setContentMd5(base64_encode(md5(stream_get_contents($feedHandle), true)));
+		rewind($feedHandle);
+		$request->setPurgeAndReplace(false);
+		$request->setFeedContent($feedHandle);
+		rewind($feedHandle);
+			
+		return $this->invokeSubmitFeed($this->service, $request);
+	
+		@fclose($feedHandle);
+	}
 
 	/**
 	 * Submit Feed Action Sample
@@ -128,6 +149,17 @@ class Amazon_api
 
 	//===================================GET LIST PRODUCT=============================================================
 
+	function getFeedSubmissionListById($ids) {
+		$parameters = array (
+				'Merchant' => MERCHANT_ID
+		);
+	
+		$request = new MarketplaceWebService_Model_GetFeedSubmissionListRequest($parameters);
+		$idList = new MarketplaceWebService_Model_IdList();
+		$idList->setId($ids);
+		$request->setFeedSubmissionIdList($idList);
+		return $this->invokeGetFeedSubmissionList($this->service, $request);
+	}
 
 	function getFeedSubmissionList() {
 		$parameters = array (
@@ -217,15 +249,20 @@ class Amazon_api
 	//=========================================GET PRODUCT=======================================================
 
 	function getFeedSubmissionResult($feedSubmissionId) {
+		$fileHandle = fopen('php://memory', 'rw+');
 		$parameters = array (
 				'Merchant' => MERCHANT_ID,
-				'FeedSubmissionId' => $feedSubmissionId,
-				'FeedSubmissionResult' => @fopen('php://memory', 'rw+'),
+				'FeedSubmissionId' => $feedSubmissionId
 		);
 		
 		$request = new MarketplaceWebService_Model_GetFeedSubmissionResultRequest($parameters);
+		$request->setFeedSubmissionResult($fileHandle);
 		
-		return $this->invokeGetFeedSubmissionResult($this->service, $request);
+		$result = $this->invokeGetFeedSubmissionResult($this->service, $request);
+		rewind($fileHandle);
+		$responseStr = stream_get_contents($fileHandle);
+		$responseXML = new SimpleXMLElement($responseStr);
+		return $responseXML;
 	}
 
 	/**
@@ -241,7 +278,6 @@ class Amazon_api
 		$result = array();
 		try {
 			$response = $service->getFeedSubmissionResult($request);
-			var_dump($response);
 			if ($response->isSetGetFeedSubmissionResultResult()) {
 				$getFeedSubmissionResultResult = $response->getGetFeedSubmissionResultResult();
 				if ($getFeedSubmissionResultResult->isSetContentMd5()) {
