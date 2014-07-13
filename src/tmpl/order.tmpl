@@ -1,0 +1,58 @@
+<table id="orderTable" class="table-bordered table table-hover table-striped general-table">
+    <thead>
+    <tr>
+        <th class="sorting" index="0" id="amazonOrderId">Order ID</th>
+        <th class="sorting" index="0" id="buyerName">Buyer Name</th>
+        <th class="sorting" index="0" id="purchaseDate">Purchase Date</th>
+        <th class="sorting" index="0" id="lastUpdateDate">Update Date</th>
+        <th class="sorting" index="0" id="orderStatus">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{for order_list}}
+          <tr id="{{:#index}}">
+            <td>
+                <a href="{{:#parent.parent.data.base_url}}order/view/{{>amazonOrderId}}">
+                    {{>amazonOrderId}}
+                </a>
+            </td>
+            <td>{{>buyerName}}</td>
+            <td>{{>purchaseDate}}</td>
+            <td>{{>lastUpdateDate}}</td>
+            <td><span class="label 
+            {{if orderStatus == "Canceled" }}
+             label-danger 
+            {{else orderStatus == "Shipped" }} 
+            label-success  
+            {{else orderStatus == "Pending" }} 
+            label-info
+            {{else orderStatus == "Unshipped" }} 
+            label-warning
+            {{else}}
+            label-default
+            {{/if}} label-mini">{{>orderStatus}}</span></td>
+        </tr>
+     {{/for}}
+    </tbody>
+</table>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="dataTables_info"
+            id="dynamic-table_info">Showing {{>start_index}} to {{>end_index}} of
+            {{>total_record}} entries</div>
+    </div>
+    {{if total_page.length > 1 }} 
+    <div id="pagging" class="span6">
+        <div
+            class="dataTables_paginate paging_bootstrap pagination">
+            <ul>
+                <li class="prev control{{if current_page == 1 }} disabled {{/if}}" ><a href="javascript:void(0);">← Previous</a></li>
+                {{for total_page}}
+                <li class="control {{if #index+1 == ~root.current_page }} active {{/if}}" page="{{:#index+1}}"><a href="javascript:void(0);">{{:#index+1}}</a></li>
+                {{/for}}
+                <li class="next control{{if current_page == total_page.length }} disabled {{/if}}"><a href="javascript:void(0);">Next → </a></li>
+            </ul>
+        </div>
+    </div>
+    {{/if}}
+</div>

@@ -23,6 +23,11 @@ img {
 	border: 0;
 }
 
+a,a:hover,a:focus {
+    text-decoration:none;
+    outline:none;
+}
+
 .clearfix:after {
 	content: ".";
 	display: block;
@@ -616,3 +621,119 @@ element.style {
 #cke_description {
     margin-top: 3px;
 }
+
+
+
+table.table thead .sorting { background: url('../img/sort_both.png') no-repeat center right;cursor:pointer;}
+table.table thead .sorting_asc { background: url('../img/sort_asc.png') no-repeat center right !important;cursor:pointer; }
+table.table thead .sorting_desc { background: url('../img/sort_desc.png') no-repeat center right !important;cursor:pointer; }
+
+.dataTables_length {
+    width: 40%;
+    float: left;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.dataTables_length select {
+    display:inline-block;
+    margin:0 10px 0 0;
+    padding:5px 8px;
+    width:68px;
+}
+
+.dataTables_length label {
+    font-weight: normal;
+}
+
+.dataTables_paginate.paging_bootstrap.pagination li {
+    float:left;
+    margin:0 1px;
+    border:1px solid #ddd;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    list-style: none;
+}
+
+.dataTables_paginate.paging_bootstrap.pagination li a {
+    color:#797979;
+    padding:5px 10px;
+    display:inline-block;
+}
+.dataTables_paginate.paging_bootstrap.pagination li:hover a,
+.dataTables_paginate.paging_bootstrap.pagination li.active a {
+    color:#797979;
+    background:#eee;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+}
+
+.dataTables_paginate.paging_bootstrap.pagination li.disabled a,
+.dataTables_paginate.paging_bootstrap.pagination li.disabled:hover a {
+    color:#c7c7c7;
+    background: #fff;
+}
+
+.dataTables_paginate.paging_bootstrap.pagination {
+    float:right;
+    margin-top:-5px;
+    margin-bottom:15px;
+}
+
+.search-bg {
+    background: #57c8f1 url("../img/search-icon.png") no-repeat 10px 8px;
+}
+
+.input-group-btn:first-child>.btn:not(:first-child) {
+     border-top-left-radius: 4px;
+     border-bottom-left-radius: 4px;
+}
+
+.input-group-btn #filter-btn{
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+
+.date-cp {
+/*     display: none; */
+}
+
+.size-h2 {
+    font-size: 30px;
+}
+
+.panel-default > .panel-heading {
+    background-color: #FFFFFF;
+    border-color: #DDDDDD;
+    color: #797979;
+}
+
+.form-horizontal.item .control-label{
+    padding-top: 0px;
+}
+
+.demo {
+    width: 100%;
+}
+
+.demo th{
+    width: 30%;
+    background: #f9f9f9;
+    font-weight: normal;
+}
+
+.demo th,
+.demo td{
+    border: 1px solid #ddd;
+    padding: 6px;
+    
+}
+
+.demo .title {
+    background: #fff;
+    border-bottom-width: 2px;
+    border-top-width: 2px;
+}
+
+.panel-default > .panel-heading {
+    background-image: none;

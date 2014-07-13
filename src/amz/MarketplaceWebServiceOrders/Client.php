@@ -154,6 +154,7 @@ class MarketplaceWebServiceOrders_Client implements MarketplaceWebServiceOrders_
         if (!($request instanceof MarketplaceWebServiceOrders_Model_ListOrderItemsRequest)) {
             require_once (dirname(__FILE__) . '/Model/ListOrderItemsRequest.php');
             $request = new MarketplaceWebServiceOrders_Model_ListOrderItemsRequest($request);
+            
         }
         $parameters = $request->toQueryParameterArray();
         $parameters['Action'] = 'ListOrderItems';
@@ -606,6 +607,7 @@ class MarketplaceWebServiceOrders_Client implements MarketplaceWebServiceOrders_
         }
 
         $ch = curl_init();
+        curl_setopt ($ch, CURLOPT_CAINFO, dirname(__FILE__) .'/cacert.pem');
         curl_setopt($ch, CURLOPT_URL, $scheme . $url['host'] . $uri);
         curl_setopt($ch, CURLOPT_PORT, $port);
         $this->setSSLCurlOptions($ch);
@@ -621,8 +623,8 @@ class MarketplaceWebServiceOrders_Client implements MarketplaceWebServiceOrders_
         }
 
         $response = "";
+        
         $response = curl_exec($ch);
-
         if($response === false) {
             require_once (dirname(__FILE__) . '/Exception.php');
             $exProps["Message"] = curl_error($ch);

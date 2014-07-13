@@ -13,13 +13,16 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/bootstrap.min.css" media="all" />
     <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/bootstrap-theme.min.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/bootstrap-custom.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/bootstrap-custom.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/bootstrap-reset.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/datepicker.css" media="all" />
     <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/font-awesome.min.css" media="all" />
     <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/layout.css" media="all" />
     
     <!-- Javscript -->
     <script type="text/javascript" src="<?php echo base_url()?>js/lib/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url()?>js/lib/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>js/layout.js"></script>
 </head>
 <body>
@@ -32,16 +35,16 @@
 			</div>
 			<div id="top_menu" class="nav notify-row">
 			    <ul class="nav top-menu">
-			        <li class="dropdown" id="header_inbox_bar">
+			        <li class="dropdown hide" id="header_inbox_bar">
 			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			                <i class="fa fa-envelope-o"></i>
 			                <span class="badge bg-important">4</span>
 			            </a>
 			        </li>
 			        <li class="dropdown" id="header_notification_bar">
-			            <a href="#" class="dropdown-toggle">
+			            <a href="<?php echo base_url()?>order/view_new" class="dropdown-toggle" title="has new orders">
 			                <i class="fa fa-bell-o"></i>
-			                <span class="badge bg-warning">3</span>
+			                <span id="bell" class="badge bg-warning hide"></span>
 			            </a>
 			        </li>
 			    </ul>
@@ -82,7 +85,7 @@
 		                </li>
 		                <?php }?>
 		                <li>
-		                    <a href="#">
+		                    <a href="<?php echo base_url()?>order">
 		                        <i class="fa  fa-pencil-square-o"></i>
 		                        <span>Order</span>
 		                    </a>

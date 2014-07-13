@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','datamapper','session', 'layout', 'amazon_api');
+$autoload['libraries'] = array('database','datamapper','session', 'layout', 'amazon_api', 'order_api');
 
 
 /*
