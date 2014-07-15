@@ -19,20 +19,47 @@ class Order extends CI_Controller {
 	{
 		$this->layout->view('order_list');
 	}
-	
-	public function cancel() {
+	public function shipped() {
 	    $id = $this->input->post('orderId');
-		$feed =  $this->parser->parse('xml/order_template', array(
+		
+		$orderItemModel = new OrderItemModel();
+		$order_item_list = $orderItemModel->where('amazonOrderId', $id)->get()->all_to_array();
+		
+		$orderModel = new OrderModel();
+		$order = $orderModel->where('amazonOrderId', $id)->get();
+		
+		$feed =  $this->parser->parse('xml/order_shipped', array(
 				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
-				'AmazonOrderID' => $id), TRUE);
-		echo $id;
-		echo($feed);
+				'AmazonOrderID' => $id,
+				'Orders' => $order_item_list), TRUE);
+
 		try {
-			$result = $this->amazon_api->updateOrderStatus($feed);
-		print_r($result);
+			$result = $this->amazon_api->shipped($feed);
+	
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
+		
+		redirect('order');
+	}
+	
+	public function cancel() {
+	    $id = $this->input->post('orderId');
+		
+		$orderItemModel = new OrderItemModel();
+		$order_item_list = $orderItemModel->where('amazonOrderId', $id)->get()->all_to_array();
+		$feed =  $this->parser->parse('xml/order_template', array(
+				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
+				'AmazonOrderID' => $id,
+				'Orders' => $order_item_list), TRUE);
+	
+		try {
+			$result = $this->amazon_api->updateOrderStatus($feed);
+			
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+		redirect('order');
 	}
 	
 	public function search() {
@@ -66,7 +93,7 @@ class Order extends CI_Controller {
 				if ($my_order_item->orderItemId == $order_item->OrderItemId) {
 					$is_new = false;
 					$order_item_info = array();
-					$my_order_item->where('orderItemId', $order_item->OrderItemId);
+					$orderItemModel->where('orderItemId',(string) $order_item->OrderItemId);
 					$order_item_info['title'] = (string) $order_item->Title;
 					$order_item_info['quantityOrdered'] = (string) $order_item->QuantityOrdered;
 					$order_item_info['quantityShipped'] = (string) $order_item->QuantityShipped;
@@ -91,7 +118,7 @@ class Order extends CI_Controller {
 					$order_item_info['conditionSubtypeId'] = (string) $order_item->ConditionSubtypeId;
 					$order_item_info['ASIN'] = (string) $order_item->ASIN;
 					$order_item_info['SellerSKU'] = (string) $order_item->SellerSKU;
-					$my_order_item->update($order_item_info);
+					$orderItemModel->update($order_item_info);
 					break;
 				}
 			}
@@ -150,7 +177,7 @@ class Order extends CI_Controller {
 				if ($my_order->amazonOrderId == $amz_order->AmazonOrderId) {
 					$is_new = false;
 					$order_info = array();
-					$my_order->where('amazonOrderId', $amz_order->AmazonOrderId);
+					$orderModel->where('amazonOrderId', (string) $amz_order->AmazonOrderId);
 					$order_info['purchaseDate'] = (string) $amz_order->PurchaseDate;
 					$order_info['lastUpdateDate'] = (string) $amz_order->LastUpdateDate;
 					$order_info['orderStatus'] = (string) $amz_order->OrderStatus;
@@ -180,7 +207,7 @@ class Order extends CI_Controller {
 					$order_info['latestShipDate'] = (string) $amz_order->LatestShipDate;
 					$order_info['earliestDeliveryDate'] = (string) $amz_order->EarliestDeliveryDate;
 					$order_info['latestDeliveryDate'] = (string) $amz_order->LatestDeliveryDate;
-					$my_order->update($order_info);
+					$orderModel->update($order_info);
 					break;
 				}
 			}
