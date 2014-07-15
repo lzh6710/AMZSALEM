@@ -18,11 +18,27 @@ var base_url = "<?php echo base_url()?>";
                  </span>
             </header>
             <div class="panel-body">
+				<div class="alert alert-success alert-block fade in" id="updateNote" <?php if (!isset($update_id)) {?> style="display:none;" <?php } ?>>
+					<button data-dismiss="alert" class="close close-sm" type="button">
+						<i class="fa fa-times" onclick ="javascript:$('#updateNote').fadeOut();" ></i>
+					</button>
+					<h4>
+						<i class="icon-ok-sign" id="closeNote"></i>
+						Update Success! ORDER ID : <?php if (isset($update_id)) { echo $update_id; }?>
+					</h4>
+					<p>Please wait a few minutes while Amazon processing...<br>
+					Then please click update button is below to refest order list.</p>
+				</div>
+			
                 <div class="clearfix fill" style="display: table;width: 100%">
                     <div class="btn-group" style="display: table-cell;">
                         <a href="javascript:void(0);"><button type="button" id="update-btn" class="btn btn-info" title="Get new order from amazon"><i class="fa fa-refresh"></i> Update</button></a>
                         <a href="javascript:void(0);" class="hide"><button type="button" class="btn btn-primary">Default Button</button></a>
                     </div>
+					
+					
+					
+					
                     <div style="display: table-cell; padding: 0px 5px;">
                     <div id="order-search" class="input-group m-bot15">
                                 <div class="input-group-btn dropdown btn-group">

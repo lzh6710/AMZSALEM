@@ -17,7 +17,13 @@ class Order extends CI_Controller {
 
 	public function index()
 	{
-		$this->layout->view('order_list');
+		$data = array();
+		$update_id = $this->session->flashdata('update_id');
+		if ($update_id) {
+			$data['update_id'] = $update_id ;
+		}
+		
+		$this->layout->view('order_list', $data);
 	}
 	public function shipped() {
 	    $id = $this->input->post('orderId');
@@ -35,10 +41,11 @@ class Order extends CI_Controller {
 
 		try {
 			$result = $this->amazon_api->shipped($feed);
-	
+			$this->session->set_flashdata('update_id', $id);
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
+		
 		
 		redirect('order');
 	}
@@ -55,7 +62,7 @@ class Order extends CI_Controller {
 	
 		try {
 			$result = $this->amazon_api->updateOrderStatus($feed);
-			
+			$this->session->set_flashdata('update_id', $id);
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
