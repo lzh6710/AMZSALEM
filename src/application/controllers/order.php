@@ -22,18 +22,17 @@ class Order extends CI_Controller {
 		if ($update_id) {
 			$data['update_id'] = $update_id ;
 		}
-		
 		$this->layout->view('order_list', $data);
 	}
+
 	public function shipped() {
-	    $id = $this->input->post('orderId');
-		
+		$id = $this->input->post('orderId');
 		$orderItemModel = new OrderItemModel();
 		$order_item_list = $orderItemModel->where('amazonOrderId', $id)->get()->all_to_array();
-		
+
 		$orderModel = new OrderModel();
 		$order = $orderModel->where('amazonOrderId', $id)->get();
-		
+
 		$feed =  $this->parser->parse('xml/order_shipped', array(
 				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
 				'AmazonOrderID' => $id,
@@ -45,21 +44,19 @@ class Order extends CI_Controller {
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
-		
-		
 		redirect('order');
 	}
-	
+
 	public function cancel() {
-	    $id = $this->input->post('orderId');
-		
+		$id = $this->input->post('orderId');
+
 		$orderItemModel = new OrderItemModel();
 		$order_item_list = $orderItemModel->where('amazonOrderId', $id)->get()->all_to_array();
 		$feed =  $this->parser->parse('xml/order_template', array(
 				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
 				'AmazonOrderID' => $id,
 				'Orders' => $order_item_list), TRUE);
-	
+
 		try {
 			$result = $this->amazon_api->updateOrderStatus($feed);
 			$this->session->set_flashdata('update_id', $id);
@@ -68,29 +65,29 @@ class Order extends CI_Controller {
 		}
 		redirect('order');
 	}
-	
+
 	public function search() {
 		checkAjax();
 		$search_condition = $this->input->post('searchCondition');
-		
+
 		if ($search_condition['is_update'] == '1') {
 			$this->getOrderFromAmazon();
 		}
 
 		$orderModel = new OrderModel();
 		$result = $orderModel->getListWithPagging($search_condition);
-		
+
 		if ($search_condition['is_update'] == '1') {
 			$result['total_not_view'] = $orderModel->countByNotView();
 		}
 
-    	echo json_encode($result);
+		echo json_encode($result);
 	}
-	
+
 	public function view($id) {
 		$orderItemModel = new OrderItemModel();
 		$order_item_list = $orderItemModel->getList($id);
-		
+
 		$xmlString = $this->order_api->getItemsListOrders($id);
 		$xml = new SimpleXMLElement($xmlString);
 		$amazon_order_id = $xml->ListOrderItemsResult->OrderItems->AmazonOrderId;
@@ -129,7 +126,7 @@ class Order extends CI_Controller {
 					break;
 				}
 			}
-			
+
 			if ($is_new) {
 				$orderItemModel = new OrderItemModel();
 				$orderItemModel->amazonOrderId = (string) $id;
@@ -161,7 +158,7 @@ class Order extends CI_Controller {
 				$orderItemModel->save();
 			}
 		}
-		
+
 		$order_item_list = $orderItemModel->getList($id);
 		$orderModel = new OrderModel();
 		$order = $orderModel->where('amazonOrderId', $id)->get();
@@ -169,13 +166,13 @@ class Order extends CI_Controller {
 		$data['order_item_list'] = $order_item_list;
 		$data['order'] = $order;
 		$this->layout->view('order_item', $data);
-		
+
 	}
-	
+
 	public function getOrderFromAmazon() {
 		$orderModel = new OrderModel();
 		$order_list = $orderModel->getList();
-		
+
 		$xmlString = $this->order_api->getListOrders();
 		$xml = new SimpleXMLElement($xmlString);
 		foreach ($xml->ListOrdersResult->Orders->Order as $amz_order) {
@@ -218,7 +215,7 @@ class Order extends CI_Controller {
 					break;
 				}
 			}
-				
+
 			if ($is_new) {
 				$orderModel = new OrderModel();
 				$orderModel->amazonOrderId = (string) $amz_order->AmazonOrderId;
@@ -253,7 +250,7 @@ class Order extends CI_Controller {
 				$orderModel->latestDeliveryDate = (string) $amz_order->LatestDeliveryDate;
 				$orderModel->save();
 			}
-				
+
 		}
 	}
 }

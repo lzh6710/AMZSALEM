@@ -79,6 +79,63 @@ var base_url = "<?php echo base_url()?>";
                     </div>
                     </div>
                 </div>
+                
+                <section class="panel" style="border: 1px solid #ddd; margin-top: 20px;display: none; ">
+                    <div class="panel-body form">
+                        <form action="#" class="form-horizontal ">
+
+                             <div class="form-group">
+                                <label class="control-label col-md-3">Create Before</label>
+                                <div class="col-md-4 col-xs-11">
+
+                                    <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date dpYears">
+                                        <input type="text"  value="" size="16" class="form-control">
+                                              <span class="input-group-btn add-on">
+                                                <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+                                              </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Create After</label>
+                                <div class="col-md-4 col-xs-11">
+
+                                    <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date dpYears">
+                                        <input type="text"  value="" size="16" class="form-control">
+                                              <span class="input-group-btn add-on">
+                                                <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+                                              </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Update Before</label>
+                                <div class="col-md-4 col-xs-11">
+
+                                    <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date dpYears">
+                                        <input type="text"  value="" size="16" class="form-control">
+                                              <span class="input-group-btn add-on">
+                                                <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+                                              </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Update After</label>
+                                <div class="col-md-4 col-xs-11">
+
+                                    <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date dpYears">
+                                        <input type="text"  value="" size="16" class="form-control">
+                                              <span class="input-group-btn add-on">
+                                                <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+                                              </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+                
                 <div id="dynamic-table_length"
                     class="dataTables_length">
                     <label><select class="form-control" size="1"
@@ -96,3 +153,4 @@ var base_url = "<?php echo base_url()?>";
         </section>
     </div>
 </div>
+
