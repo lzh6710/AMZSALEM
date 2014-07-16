@@ -206,6 +206,8 @@ class Product extends CI_Controller {
 		$productModel->manufacturer = trim($this->input->post('manufacturer'));
 		$productModel->description = trim($this->input->post('description'));
 		$productModel->productData = $this->input->post('productData');
+		$productModel->mfrPartNumber = $this->input->post('mfrPartNumber');
+		
 
 		if($this->form_validation->run() == false) {
 			$data['product'] = $productModel;
@@ -228,7 +230,7 @@ class Product extends CI_Controller {
 						'MSRP' => $productModel->MSRP,
 						'currency' => $productModel->currency,
 						'Manufacturer' => $productModel->manufacturer,
-						'MfrPartNumber' => '234-12',
+						'MfrPartNumber' => $productModel->mfrPartNumber,
 						'Description' => $productModel->description,
 						'ProductData' => $productModel->productData
 				);

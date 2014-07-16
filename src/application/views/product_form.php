@@ -78,7 +78,13 @@
 								<label for="MSRP" class="error"><?php echo form_error('MSRP'); ?></label>
 							</div>
 						</div>
-						
+						<div class="form-group ">
+							<label for="mfrPartNumber" class="control-label col-lg-3">MfrPartNumber</label>
+							<div class="col-lg-6">
+								<input class="form-control " value="<?php echo $product->mfrPartNumber ?>" id="mfrPartNumber" name="mfrPartNumber" type="text">
+								<label for="mfrPartNumber" class="error"><?php echo form_error('mfrPartNumber'); ?></label>
+							</div>
+						</div>
 						<div class="form-group ">
 							<label for="manufacturer" class="control-label col-lg-3">Manufacturer</label>
 							<div class="col-lg-6">
