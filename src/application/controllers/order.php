@@ -17,56 +17,90 @@ class Order extends CI_Controller {
 
 	public function index()
 	{
-		$this->layout->view('order_list');
+		$data = array();
+		$update_id = $this->session->flashdata('update_id');
+		if ($update_id) {
+			$data['update_id'] = $update_id ;
+		}
+		$this->layout->view('order_list', $data);
 	}
-	
-	public function cancel() {
-	    $id = $this->input->post('orderId');
-		$feed =  $this->parser->parse('xml/order_template', array(
+
+	public function shipped() {
+		$id = $this->input->post('orderId');
+		$orderItemModel = new OrderItemModel();
+		$order_item_list = $orderItemModel->where('amazonOrderId', $id)->get()->all_to_array();
+
+		$orderModel = new OrderModel();
+		$order = $orderModel->where('amazonOrderId', $id)->get();
+
+		$feed =  $this->parser->parse('xml/order_shipped', array(
 				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
-				'AmazonOrderID' => $id), TRUE);
-		echo $id;
-		echo($feed);
+				'AmazonOrderID' => $id,
+				'Orders' => $order_item_list), TRUE);
+
 		try {
-			$result = $this->amazon_api->updateOrderStatus($feed);
-		print_r($result);
+			$result = $this->amazon_api->shipped($feed);
+			$this->session->set_flashdata('update_id', $id);
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
+		redirect('order');
 	}
-	
+
+	public function cancel() {
+		$id = $this->input->post('orderId');
+
+		$orderItemModel = new OrderItemModel();
+		$order_item_list = $orderItemModel->where('amazonOrderId', $id)->get()->all_to_array();
+		$feed =  $this->parser->parse('xml/order_template', array(
+				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
+				'AmazonOrderID' => $id,
+				'Orders' => $order_item_list), TRUE);
+
+		try {
+			$result = $this->amazon_api->updateOrderStatus($feed);
+			$this->session->set_flashdata('update_id', $id);
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+		redirect('order');
+	}
+
 	public function search() {
 		checkAjax();
 		$search_condition = $this->input->post('searchCondition');
-		
+
 		if ($search_condition['is_update'] == '1') {
-			$this->getOrderFromAmazon();
+			$this->getOrderFromAmazon($search_condition);
 		}
 
 		$orderModel = new OrderModel();
 		$result = $orderModel->getListWithPagging($search_condition);
-		
+
 		if ($search_condition['is_update'] == '1') {
 			$result['total_not_view'] = $orderModel->countByNotView();
 		}
 
-    	echo json_encode($result);
+		echo json_encode($result);
 	}
-	
+
 	public function view($id) {
 		$orderItemModel = new OrderItemModel();
 		$order_item_list = $orderItemModel->getList($id);
-		
+		/*try {
 		$xmlString = $this->order_api->getItemsListOrders($id);
 		$xml = new SimpleXMLElement($xmlString);
 		$amazon_order_id = $xml->ListOrderItemsResult->OrderItems->AmazonOrderId;
+		} catch (Exception $e) {
+			echo "Can't connect Amazon";
+		}
 		foreach ($xml->ListOrderItemsResult->OrderItems->OrderItem as $order_item) {
 			$is_new = true;
 			foreach ($order_item_list as $my_order_item) {
 				if ($my_order_item->orderItemId == $order_item->OrderItemId) {
 					$is_new = false;
 					$order_item_info = array();
-					$my_order_item->where('orderItemId', $order_item->OrderItemId);
+					$orderItemModel->where('orderItemId',(string) $order_item->OrderItemId);
 					$order_item_info['title'] = (string) $order_item->Title;
 					$order_item_info['quantityOrdered'] = (string) $order_item->QuantityOrdered;
 					$order_item_info['quantityShipped'] = (string) $order_item->QuantityShipped;
@@ -91,11 +125,11 @@ class Order extends CI_Controller {
 					$order_item_info['conditionSubtypeId'] = (string) $order_item->ConditionSubtypeId;
 					$order_item_info['ASIN'] = (string) $order_item->ASIN;
 					$order_item_info['SellerSKU'] = (string) $order_item->SellerSKU;
-					$my_order_item->update($order_item_info);
+					$orderItemModel->update($order_item_info);
 					break;
 				}
 			}
-			
+
 			if ($is_new) {
 				$orderItemModel = new OrderItemModel();
 				$orderItemModel->amazonOrderId = (string) $id;
@@ -126,23 +160,23 @@ class Order extends CI_Controller {
 				$orderItemModel->SellerSKU = (string) $order_item->SellerSKU;
 				$orderItemModel->save();
 			}
-		}
-		
-		$order_item_list = $orderItemModel->getList($id);
+		}*/
+
+		//$order_item_list = $orderItemModel->getList($id);
 		$orderModel = new OrderModel();
 		$order = $orderModel->where('amazonOrderId', $id)->get();
 		$data = array();
 		$data['order_item_list'] = $order_item_list;
 		$data['order'] = $order;
 		$this->layout->view('order_item', $data);
-		
+
 	}
-	
-	public function getOrderFromAmazon() {
+
+	public function getOrderFromAmazon($search_condition) {
 		$orderModel = new OrderModel();
 		$order_list = $orderModel->getList();
-		
-		$xmlString = $this->order_api->getListOrders();
+
+		$xmlString = $this->order_api->getListOrders($search_condition);
 		$xml = new SimpleXMLElement($xmlString);
 		foreach ($xml->ListOrdersResult->Orders->Order as $amz_order) {
 			$is_new = true;
@@ -150,7 +184,7 @@ class Order extends CI_Controller {
 				if ($my_order->amazonOrderId == $amz_order->AmazonOrderId) {
 					$is_new = false;
 					$order_info = array();
-					$my_order->where('amazonOrderId', $amz_order->AmazonOrderId);
+					$orderModel->where('amazonOrderId', (string) $amz_order->AmazonOrderId);
 					$order_info['purchaseDate'] = (string) $amz_order->PurchaseDate;
 					$order_info['lastUpdateDate'] = (string) $amz_order->LastUpdateDate;
 					$order_info['orderStatus'] = (string) $amz_order->OrderStatus;
@@ -180,11 +214,11 @@ class Order extends CI_Controller {
 					$order_info['latestShipDate'] = (string) $amz_order->LatestShipDate;
 					$order_info['earliestDeliveryDate'] = (string) $amz_order->EarliestDeliveryDate;
 					$order_info['latestDeliveryDate'] = (string) $amz_order->LatestDeliveryDate;
-					$my_order->update($order_info);
+					$orderModel->update($order_info);
 					break;
 				}
 			}
-				
+
 			if ($is_new) {
 				$orderModel = new OrderModel();
 				$orderModel->amazonOrderId = (string) $amz_order->AmazonOrderId;
@@ -219,7 +253,7 @@ class Order extends CI_Controller {
 				$orderModel->latestDeliveryDate = (string) $amz_order->LatestDeliveryDate;
 				$orderModel->save();
 			}
-				
+
 		}
 	}
 }

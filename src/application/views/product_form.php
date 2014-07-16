@@ -119,12 +119,3 @@
 		</section>
 	</div>
 </div>
-<div class="row">
-	<div class="admin-bar" id="quick-access">
-		<div class="admin-bar-inner">
-			<div class="left msg">Are you sure you want to delete this user ?</div>
-			<button class="btn btn-danger  btn-ok" type="button"><i class="icon-trash"></i> Yes </button>
-			<button class="btn btn-white  btn-cancel" type="button">No</button>
-		</div>
-	</div>
-</div>

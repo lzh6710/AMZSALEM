@@ -32,6 +32,10 @@ class Amazon_api
 		return $this->submitFeed($feed, '_POST_ORDER_ACKNOWLEDGEMENT_DATA_');
 	}
 	
+	function shipped($feed) {
+		return $this->submitFeed($feed, '_POST_ORDER_FULFILLMENT_DATA_');
+	}
+	
 	function submitProduct($feed) {
 		return $this->submitFeed($feed, '_POST_PRODUCT_DATA_');
 	}

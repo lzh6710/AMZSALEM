@@ -21,6 +21,8 @@
     
     <!-- Javscript -->
     <script type="text/javascript" src="<?php echo base_url()?>js/lib/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url()?>js/lib/tmpl.loader.js"></script>
+	<script type="text/javascript" src="<?php echo base_url()?>js/lib/jsrender.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>js/lib/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>js/lib/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>js/layout.js"></script>
@@ -96,11 +98,8 @@
 		                        <span>Amazone</span>
 		                    <span class="dcjq-icon"></span></a>
 		                    <ul class="sub" style="display: none;">
-		                        <li><a href="<?php echo base_url()?>product">View</a></li>
+		                        <li><a href="<?php echo base_url()?>product">List Product</a></li>
 		                        <li><a href="<?php echo base_url()?>product/categories">Add New Product</a></li>
-		                        <li><a href="#">Export File</a></li>
-								<li><a href="<?php echo base_url()?>home/submitFeed">submitFeed</a></li>
-								<li><a href="<?php echo base_url()?>amzProductList">List Product</a></li>
 		                    </ul>
 		                </li>
 		          </ul>
