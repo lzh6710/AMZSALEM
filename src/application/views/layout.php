@@ -98,11 +98,8 @@
 		                        <span>Amazone</span>
 		                    <span class="dcjq-icon"></span></a>
 		                    <ul class="sub" style="display: none;">
-		                        <li><a href="<?php echo base_url()?>product">View</a></li>
+		                        <li><a href="<?php echo base_url()?>product">List Product</a></li>
 		                        <li><a href="<?php echo base_url()?>product/categories">Add New Product</a></li>
-		                        <li><a href="#">Export File</a></li>
-								<li><a href="<?php echo base_url()?>home/submitFeed">submitFeed</a></li>
-								<li><a href="<?php echo base_url()?>amzProductList">List Product</a></li>
 		                    </ul>
 		                </li>
 		          </ul>
