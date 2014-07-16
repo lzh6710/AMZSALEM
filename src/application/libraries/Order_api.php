@@ -67,11 +67,28 @@ class Order_api
 	}
 
 	//===================================GET LIST ORDER=============================================================
-	function getListOrders() {
+	function getListOrders($search_condition) {
 		$request = new MarketplaceWebServiceOrders_Model_ListOrdersRequest();
 		$request->setSellerId(MERCHANT_ID);
 		$request->setMarketplaceId(MARKETPLACE_ID);
-		$request->setCreatedAfter("2014-07-01");
+		
+		if ($search_condition['create_before']) {
+			$request->getCreatedBefore($search_condition['create_before']);
+		}
+		
+		if ($search_condition['create_after']) {
+			$request->setCreatedAfter($search_condition['create_after']);
+		}
+		
+		if ($search_condition['update_before']) {
+			$request->setLastUpdatedBefore($search_condition['update_before']);
+		}
+		
+		if ($search_condition['update_after']) {
+			$request->setLastUpdatedAfter($search_condition['update_after']);
+		}
+		
+		
 		return $this->invokeListOrders($this->service, $request);
 	}
 

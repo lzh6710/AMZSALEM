@@ -71,7 +71,7 @@ class Order extends CI_Controller {
 		$search_condition = $this->input->post('searchCondition');
 
 		if ($search_condition['is_update'] == '1') {
-			$this->getOrderFromAmazon();
+			$this->getOrderFromAmazon($search_condition);
 		}
 
 		$orderModel = new OrderModel();
@@ -87,10 +87,13 @@ class Order extends CI_Controller {
 	public function view($id) {
 		$orderItemModel = new OrderItemModel();
 		$order_item_list = $orderItemModel->getList($id);
-
+		/*try {
 		$xmlString = $this->order_api->getItemsListOrders($id);
 		$xml = new SimpleXMLElement($xmlString);
 		$amazon_order_id = $xml->ListOrderItemsResult->OrderItems->AmazonOrderId;
+		} catch (Exception $e) {
+			echo "Can't connect Amazon";
+		}
 		foreach ($xml->ListOrderItemsResult->OrderItems->OrderItem as $order_item) {
 			$is_new = true;
 			foreach ($order_item_list as $my_order_item) {
@@ -157,9 +160,9 @@ class Order extends CI_Controller {
 				$orderItemModel->SellerSKU = (string) $order_item->SellerSKU;
 				$orderItemModel->save();
 			}
-		}
+		}*/
 
-		$order_item_list = $orderItemModel->getList($id);
+		//$order_item_list = $orderItemModel->getList($id);
 		$orderModel = new OrderModel();
 		$order = $orderModel->where('amazonOrderId', $id)->get();
 		$data = array();
@@ -169,11 +172,11 @@ class Order extends CI_Controller {
 
 	}
 
-	public function getOrderFromAmazon() {
+	public function getOrderFromAmazon($search_condition) {
 		$orderModel = new OrderModel();
 		$order_list = $orderModel->getList();
 
-		$xmlString = $this->order_api->getListOrders();
+		$xmlString = $this->order_api->getListOrders($search_condition);
 		$xml = new SimpleXMLElement($xmlString);
 		foreach ($xml->ListOrdersResult->Orders->Order as $amz_order) {
 			$is_new = true;

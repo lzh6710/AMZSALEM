@@ -21,6 +21,8 @@
     
     <!-- Javscript -->
     <script type="text/javascript" src="<?php echo base_url()?>js/lib/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url()?>js/lib/tmpl.loader.js"></script>
+	<script type="text/javascript" src="<?php echo base_url()?>js/lib/jsrender.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>js/lib/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>js/lib/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="<?php echo base_url()?>js/layout.js"></script>

@@ -1,5 +1,3 @@
-<script type="text/javascript" src="<?php echo base_url()?>js/lib/tmpl.loader.js"></script>
-<script type="text/javascript" src="<?php echo base_url()?>js/lib/jsrender.min.js"></script>
 <script>
 var base_url = "<?php echo base_url()?>";
 </script>
@@ -27,12 +25,12 @@ var base_url = "<?php echo base_url()?>";
 						Update Success! ORDER ID : <?php if (isset($update_id)) { echo $update_id; }?>
 					</h4>
 					<p>Please wait a few minutes while Amazon processing...<br>
-					Then please click update button is below to refest order list.</p>
+					Then please enter conditions and click 'Get Orders From Amazon' button is below to refest order list.</p>
 				</div>
 			
-                <div class="clearfix fill" style="display: table;width: 100%">
+                <div class="clearfix fill" style="display: table;width: 100%; margin-bottom: 20px;">
                     <div class="btn-group" style="display: table-cell;">
-                        <a href="javascript:void(0);"><button type="button" id="update-btn" class="btn btn-info" title="Get new order from amazon"><i class="fa fa-refresh"></i> Update</button></a>
+                        <a href="javascript:void(0);"><button type="button" id="amazon-btn" class="btn btn-info" title="Get new order from amazon"><i class="fa fa-cloud"></i> Get Orders From Amazon</button></a>
                         <a href="javascript:void(0);" class="hide"><button type="button" class="btn btn-primary">Default Button</button></a>
                     </div>
 					
@@ -80,59 +78,73 @@ var base_url = "<?php echo base_url()?>";
                     </div>
                 </div>
                 
-                <section class="panel" style="border: 1px solid #ddd; margin-top: 20px;display: none; ">
-                    <div class="panel-body form">
+                <section id="orderDate" class="panel" style="border: 1px solid #ddd;display:none;">
+                    <div class="panel-body form" style="padding-top: 30px;">
+						<div class="alert alert-warning" style="display:none">
+    <h4><i class="fa fa-warning"></i> Error!</h4>
+Can't connect to Amazon service now.
+  </div>
+					
                         <form action="#" class="form-horizontal ">
-
+							<div class="col-lg-6">
                              <div class="form-group">
-                                <label class="control-label col-md-3">Create Before</label>
-                                <div class="col-md-4 col-xs-11">
+                                <label class="control-label col-md-4">Create Before</label>
+                                <div class="col-md-8 col-xs-11">
 
-                                    <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date dpYears">
-                                        <input type="text"  value="" size="16" class="form-control">
-                                              <span class="input-group-btn add-on">
+                                    <div  class="input-append date">
+                                        <input type="text" id="createBefore"  value="" size="16" class="form-control">
+                                              <span  date-type="start" data-date-format="yyyy-mm-dd" data-date="" class="input-group-btn add-on timepicker2">
                                                 <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
                                               </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">Create After</label>
-                                <div class="col-md-4 col-xs-11">
+                                <label class="control-label col-md-4">Create After</label>
+                                <div class="col-md-8 col-xs-11">
 
-                                    <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date dpYears">
-                                        <input type="text"  value="" size="16" class="form-control">
-                                              <span class="input-group-btn add-on">
+                                    <div  class="input-append date">
+                                        <input type="text" id="createAfter"  value="" size="16" class="form-control">
+                                              <span date-type="start" data-date-format="yyyy-mm-dd" data-date="" class="input-group-btn add-on timepicker2">
+                                                <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+                                              </span>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+						<div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4">Last Update Before</label>
+                                <div class="col-md-8 col-xs-11">
+
+                                    <div class="input-append date">
+                                        <input type="text" id="updateBefore"  value="" size="16" class="form-control">
+                                              <span date-type="start" data-date-format="yyyy-mm-dd" data-date="" class="input-group-btn add-on timepicker2">
                                                 <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
                                               </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">Update Before</label>
-                                <div class="col-md-4 col-xs-11">
+                                <label class="control-label col-md-4">Last Update After</label>
+                                <div class="col-md-8 col-xs-11">
 
-                                    <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date dpYears">
-                                        <input type="text"  value="" size="16" class="form-control">
-                                              <span class="input-group-btn add-on">
+                                    <div class="input-append date">
+                                        <input type="text" id="updateAfter"  value="" size="16" class="form-control">
+                                              <span date-type="start" data-date-format="yyyy-mm-dd" data-date="" class="input-group-btn add-on timepicker2">
                                                 <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
                                               </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Update After</label>
-                                <div class="col-md-4 col-xs-11">
-
-                                    <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date dpYears">
-                                        <input type="text"  value="" size="16" class="form-control">
-                                              <span class="input-group-btn add-on">
-                                                <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
-                                              </span>
-                                    </div>
-                                </div>
-                            </div>
+						</div>
                         </form>
+						<div style="text-align:right;padding-right: 15px;">
+						<button id="update-btn" class="btn btn-primary  ">
+                            <i class="fa fa-refresh"></i>
+                            Update
+                        </button>
+						</div>
                     </div>
                 </section>
                 

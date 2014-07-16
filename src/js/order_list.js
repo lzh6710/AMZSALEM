@@ -10,7 +10,17 @@ $(document).ready(function() {
 });
 
 var init = function() {
+	
+	$('#amazon-btn').off('click').on('click', function() {
+		if ($('#orderDate').is(':visible')) {
+			$('#orderDate').slideUp();
+		} else  {
+			$('#orderDate').slideDown();
+		}
+	});
+
 	$('#update-btn').off('click').on('click', function() {
+		$(this).find('.fa').addClass('fa-spin');
 		search(true);
 	});
 	
@@ -27,6 +37,21 @@ var init = function() {
 		} else {
 			$('#startDate').val($(this).data('date'));
 		}
+		$(this).datepicker('hide');
+	});
+	
+	$('.timepicker').datepicker().on('changeDate', function(ev){
+		if ($(this).attr('date-type') == 'end') {
+			$('#endDate').val($(this).data('date'));
+		} else {
+			$('#startDate').val($(this).data('date'));
+		}
+		$(this).datepicker('hide');
+	});
+	
+	$('.timepicker2').datepicker().on('changeDate', function(ev){
+		$(this).parents('.input-append').find('input[type=text]').val($(this).data('date'));
+		$('#endDate').val($(this).data('date'));
 		$(this).datepicker('hide');
 	});
 	
@@ -164,6 +189,13 @@ var search = function(is_update) {
 		'end_date': end_date,
 		'is_update': is_update ? '1' : '0'
 	};
+	
+	if (is_update) {
+		param['create_before'] = $('#createBefore').val();
+		param['create_after'] = $('#createAfter').val();
+		param['update_before'] = $('#updateBefore').val();
+		param['update_after'] = $('#updateAfter').val();
+	}
 
 	$.ajax({
 				type : 'POST',
@@ -174,6 +206,7 @@ var search = function(is_update) {
 					'csrf_test_name' : token
 				},
 				success : function(response) {
+					$('.alert-warning').fadeOut();
 					if (response.order_list.length > 0
 							&& response.total_page >= 0) {
 						var start_index = ((current_page - 1) * page_number) + 1;
@@ -188,10 +221,12 @@ var search = function(is_update) {
 							current_page : current_page,
 							base_url : base_url
 						});
+						$("#update-btn").find('.fa').removeClass('fa-spin');
 						$("#orderListContent").html(content);
 						dynamicInit();
 					} else {
 						$("#orderListContent").html('');
+						$("#update-btn").find('.fa').removeClass('fa-spin');
 					}
 					
 					if (response.total_not_view) {
@@ -202,7 +237,10 @@ var search = function(is_update) {
 
 				},
 				error : function() {
-
+					if ($('#orderDate').is(':visible')) {
+						$('.alert-warning').fadeIn();
+					}
+					$("#update-btn").find('.fa').removeClass('fa-spin');
 				}
 			});
 }
