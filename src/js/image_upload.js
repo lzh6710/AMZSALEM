@@ -36,6 +36,7 @@ $(function () {
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
     
     $('#updateImage').click(function(){
+      $('.alert-success','.alert-warning').hide();
       var imageList = $('#files').serializeArray();
       var data = {};
       $.each(imageList, function(index, value){
@@ -47,8 +48,15 @@ $(function () {
         url : '/product/update_image',
         type: 'POST',
         data: data,
-        success: function() {
-          console.log(arguments);
+        success: function(data) {
+          if (data == "success") {
+            $('.alert-warning').show();
+          } else {
+            $('.alert-success').show();
+          }
+        },
+        error: function() {
+          $('.alert-warning').show();
         }
       })
     });

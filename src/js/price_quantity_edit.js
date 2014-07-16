@@ -30,8 +30,10 @@ $(function () {
         url : '/product/update_price',
         type: 'POST',
         data: data,
-        success: function() {
-          console.log(arguments);
+        success: function(data) {
+          if (data == "success") {
+            $('#hiddenForm').submit();
+          }
         }
       });
       return false;
@@ -49,8 +51,10 @@ $(function () {
         url : '/product/update_inventory',
         type: 'POST',
         data: data,
-        success: function() {
-          $('#hiddenForm').submit();
+        success: function(data) {
+          if (data == "success") {
+            $('#hiddenForm').submit();
+          }
         }
       });
       return false;

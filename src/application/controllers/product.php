@@ -81,7 +81,6 @@ class Product extends CI_Controller {
 		$feed =  $this->parser->parse('xml/product_image', array(
 				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
 				'Message' => $messages), TRUE);
-		echo $feed;
 		try {
 			$result = $this->amazon_api->submitImage($feed);
 			
@@ -94,6 +93,7 @@ class Product extends CI_Controller {
 				$imageModel->feedStatus = $result['FeedProcessingStatus'];
 	
 				$imageModel->save_or_update();
+				echo "success";
 			}
 			
 		} catch (Exception $e) {
@@ -109,7 +109,6 @@ class Product extends CI_Controller {
 				'price' => $this->input->post('price')
 				);
 		$feed = $this->parser->parse('xml/product_price', $price, TRUE);
-		echo $feed;
 		try {
 			$result = $this->amazon_api->submitPrice($feed);
 			
@@ -122,6 +121,7 @@ class Product extends CI_Controller {
 			$priceModel->feedStatus = $result['FeedProcessingStatus'];
 			
 			$priceModel->save_or_update();
+			echo "success";
 			
 		} catch (Exception $e) {
 			echo $e->getMessage();
@@ -148,7 +148,7 @@ class Product extends CI_Controller {
 			$inventoryModel->feedStatus = $result['FeedProcessingStatus'];
 				
 			$inventoryModel->save_or_update();
-				
+			echo "success";
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
@@ -248,7 +248,7 @@ class Product extends CI_Controller {
 				echo $e->getMessage();
 			}
 			
-			redirect('product/categories');
+			redirect('product');
 		}
 	}
 

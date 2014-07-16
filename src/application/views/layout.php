@@ -98,7 +98,7 @@
 		                        <span>Amazone</span>
 		                    <span class="dcjq-icon"></span></a>
 		                    <ul class="sub" style="display: none;">
-		                        <li><a href="<?php echo base_url()?>product">List Product</a></li>
+		                        <li><a href="<?php echo base_url()?>product">Product List</a></li>
 		                        <li><a href="<?php echo base_url()?>product/categories">Add New Product</a></li>
 		                    </ul>
 		                </li>

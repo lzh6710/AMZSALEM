@@ -105,11 +105,7 @@
 						<div class="form-group">
 							<div class="col-lg-offset-3 col-lg-6">
 								<button class="btn btn-primary" type="submit">Post</button>
-								<?php if ($is_edit) { ?>
-								<button id="deleteBtn" class="btn btn-danger">Delete</button>
-								<input id="urlDelete" type="hidden" value="<?php echo base_url()?>management/delete" />
-								<?php }?>
-								<button onclick="location.href='<?php echo base_url()?>management'" class="btn btn-default" type="button">Cancel</button>
+								<button onclick="location.href='<?php echo base_url()?>product/categories" class="btn btn-default" type="button">Cancel</button>
 							</div>
 						</div>
 					</div>

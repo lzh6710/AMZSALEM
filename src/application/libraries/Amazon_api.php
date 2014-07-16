@@ -132,12 +132,7 @@ class Amazon_api
 			}
 
 		} catch (MarketplaceWebService_Exception $ex) {
-			echo("Caught Exception: " . $ex->getMessage() . "\n");
-			echo("Response Status Code: " . $ex->getStatusCode() . "\n");
-			echo("Error Code: " . $ex->getErrorCode() . "\n");
-			echo("Error Type: " . $ex->getErrorType() . "\n");
-			echo("Request ID: " . $ex->getRequestId() . "\n");
-			echo("XML: " . $ex->getXML() . "\n");
+			 throw new Exception('{error: 1}');
 		}
 
 		return $result;

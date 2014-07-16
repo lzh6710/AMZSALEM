@@ -1,4 +1,18 @@
-<div class="col-lg-4">
+<div class="col-lg-4" id="productImageDiv">
+	<div class="alert alert-success alert-block fade in" id="updateNote" style="display:none;">
+		<button data-dismiss="alert" class="close close-sm" type="button">
+			<i class="fa fa-times" onclick ="javascript:$('#updateNote').fadeOut();" ></i>
+		</button>
+		<h4>
+			<i class="icon-ok-sign" id="closeNote"></i>
+			Update Success!
+		</h4>
+		<p>Please wait a few minutes while Amazon processing...<br>
+	</div>
+	<div class="alert alert-warning" style="display:none">
+    <h4><i class="fa fa-warning"></i> Error!</h4>
+	Can't update image now. Please try again!
+	  </div>
     <!-- The container for the uploaded files -->
     <form id="files" class="files clearfix">
     	<?php foreach ($imageList as $image) {?>

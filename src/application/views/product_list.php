@@ -19,18 +19,9 @@
 						</button>
 						
 						<button id="refresh_status" class="btn btn-success">
-							Refresh Status <i class="fa fa-plus-circle"></i>
+							Refresh Status <i class="fa fa-cloud"></i>
 						</button>
 					</a>
-					</div>
-					<div class="btn-group pull-right dropdown">
-						<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
-						</button>
-						<ul class="dropdown-menu pull-right">
-							<li><a href="#">Print</a></li>
-							<li><a href="#">Save as PDF</a></li>
-							<li><a href="#">Export to Excel</a></li>
-						</ul>
 					</div>
 				</div>
 				<table id="productTable" class="table table-hover table-striped general-table">
