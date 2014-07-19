@@ -12,8 +12,6 @@ $(document).ready(function() {
 		$('#userForm').attr('action', $('#urlDelete').val());
 		$('#userForm').submit();
 	});
-	
-	
 });
 
 

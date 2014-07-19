@@ -212,17 +212,17 @@ var search = function(is_update) {
 						var start_index = ((current_page - 1) * page_number) + 1;
 						var end_index = ((current_page == response.total_page) ? (start_index + response.order_list.length)
 								: (start_index + page_number)) - 1;
-						var content = tmplLoader.render('order', {
-							order_list : response.order_list,
-							total_page : new Array(response.total_page),
-							total_record : response.total_record,
-							start_index : start_index,
-							end_index : end_index,
-							current_page : current_page,
-							base_url : base_url
-						});
+						var tmpl_param = {
+								'order_list' : response.order_list,
+								'total_page' : new Array(response.total_page),
+								'total_record' : response.total_record,
+								'start_index' : start_index,
+								'end_index' : end_index,
+								'current_page' : current_page,
+								'base_url' : base_url
+							};
 						$("#update-btn").find('.fa').removeClass('fa-spin');
-						$("#orderListContent").html(content);
+						$("#orderListContent").html(tmplLoader.render('order', tmpl_param));
 						dynamicInit();
 					} else {
 						$("#orderListContent").html('');

@@ -1,8 +1,10 @@
 <script>
 var base_url = "<?php echo base_url()?>";
 </script>
+<link rel="template/jsrender" type="text/html" href="<?php echo base_url()?>tmpl/order.tmpl.html" />
 <script type="text/javascript" src="<?php echo base_url()?>js/order_list.js"></script>
-<link rel="template/jsrender" type="text/html" href="<?php echo base_url()?>tmpl/order.tmpl" />
+<script type="text/javascript" src="<?php echo base_url()?>js/lib/tmpl.loader.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>js/lib/jsrender.min.js"></script>
 <input type="hidden" id="token" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 <div class="row">
     <div class="col-sm-12">

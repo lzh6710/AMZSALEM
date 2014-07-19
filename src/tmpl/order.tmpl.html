@@ -5,13 +5,13 @@
         <th class="sorting" index="0" id="buyerName">Buyer Name</th>
         <th class="sorting" index="0" id="purchaseDate">Purchase Date</th>
         <th class="sorting" index="0" id="lastUpdateDate">Update Date</th>
-        <th class="sorting" index="0" id="orderStatus">Status</th>
+        <th class="sorting" width="10%" index="0" id="orderStatus">Status</th>
     </tr>
     </thead>
     <tbody>
     {{for order_list}}
           <tr id="{{:#index}}">
-            <td>
+            <td class="orderId">
                 <a href="{{:#parent.parent.data.base_url}}order/view/{{>amazonOrderId}}">
                     {{>amazonOrderId}}
                 </a>

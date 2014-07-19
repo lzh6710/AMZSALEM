@@ -15,7 +15,7 @@ xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
  {Orders}<Item> 
  <AmazonOrderItemCode>{orderItemId}</AmazonOrderItemCode> 
  <MerchantOrderItemID>1234567</MerchantOrderItemID>
- <CancelReason>BuyerCanceled</CancelReason>
+ <CancelReason>{reason}</CancelReason>
  </Item>{/Orders}
 </OrderAcknowledgement> 
 </Message> 

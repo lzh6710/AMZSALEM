@@ -816,3 +816,128 @@ table.table thead .sorting_desc { background: url('../img/sort_desc.png') no-rep
 .alert-danger .alert-link {
   color: #843534;
 }
+
+.admin-bar {
+bottom: -115px;
+position: fixed;
+width: 100%;
+transition: all 0.5s ease-in-out;
+}
+
+.admin-bar.showTop {
+bottom: 0px;
+}
+
+
+
+.admin-bar .admin-bar-inner {
+background: none repeat scroll 0 0 padding-box #ffffff;
+border-top: 1px solid rgba(0, 0, 0, 0.15);
+box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.08);
+margin-right: 250px;
+padding: 30px 35px 30px 40px;
+text-align: right;
+}
+
+.table-invoice {
+    border-spacing:3px;
+    border-collapse:separate;
+}
+
+.table-invoice th {
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.table-invoice>thead>tr>th {
+    border-bottom:none;
+}
+.table-invoice>tbody>tr>td {
+    border-top:none;
+}
+.table-invoice thead tr th {
+    background:#e8e9f0;
+    border-radius:5px;
+    -webkit-border-radius:5px;
+    vertical-align:middle;
+}
+.table-invoice thead tr th:first-child,.table-invoice tbody tr td:first-child {
+    text-align:center;
+}
+.table-invoice tbody tr td {
+    background:#f5f6f9;
+    border-radius:5px;
+    -webkit-border-radius:5px;
+    vertical-align:middle;
+}
+.invoice-block {
+    text-align:right;
+}
+.payment-method p {
+    margin-bottom:0;
+}
+ul.amounts li {
+    background:#f5f6f9;
+    margin-bottom:5px;
+    padding:10px;
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    font-weight:300;
+    font-size:16px;
+    list-style: none;
+}
+.invoice-btn {
+    margin-top:30px;
+}
+.invoice-btn a {
+    font-weight:300;
+    margin:0 5px;
+    font-size:16px;
+}
+.corporate-id {
+    margin-bottom: 30px;
+}
+
+#orderTable span{
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+
+
+#orderTable a:hover{
+    text-decoration: underline;
+}
+
+.btn-status {
+color: #3cbe82;
+}
+
+#orderItem i {
+font-size: 15px;
+padding-right: 6px;
+}
+
+.demo th {
+    text-transform: uppercase;
+}
+
+.table-invoice span:hover {
+    text-decoration: underline;
+}
+
+.text-center {
+    text-align: center;
+}
+
+
+#orderItem input[type=checkbox] {
+    display: none;
+}
+
+.action_div {
+    display: none;
+}

@@ -19,7 +19,7 @@
 			{Orders}<Item>
 				<AmazonOrderItemCode>{orderItemId}</AmazonOrderItemCode>
 				<MerchantFulfillmentItemID>1234567</MerchantFulfillmentItemID>
-				<Quantity>1</Quantity>
+				<Quantity>{quantity}</Quantity>
 			</Item>{/Orders}
 		</OrderFulfillment>
 	</Message>
