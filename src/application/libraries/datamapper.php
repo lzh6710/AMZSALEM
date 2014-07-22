@@ -667,7 +667,7 @@ class DataMapper implements IteratorAggregate {
 	public static function autoload($class)
 	{
 		static $CI = NULL;
-
+		
 		// get the CI instance
 		is_null($CI) AND $CI =& get_instance();
 
@@ -679,7 +679,6 @@ class DataMapper implements IteratorAggregate {
 
 		// Prepare class
 		$class = strtolower($class);
-
 		// Prepare path
 		$paths = array();
 		if (method_exists($CI->load, 'get_package_paths'))

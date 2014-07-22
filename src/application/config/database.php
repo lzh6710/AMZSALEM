@@ -52,9 +52,9 @@ $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
 $db['default']['database'] = 'amz';
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = TRUE;
+$db['default']['pconnect'] = FALSE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
@@ -64,6 +64,12 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+// Change user and password
+if(strstr($_SERVER['HTTP_HOST'], '.cashdrop.co.kr')) {
+	$db['default']['username'] = 'teama';
+	$db['default']['password'] = 'teama';
+	$db['default']['hostname'] = '172.27.249.157';
+}
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

@@ -44,6 +44,8 @@
     ***********************************************************************/   
     $amz_folder = __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."amz";
     set_include_path(get_include_path() . PATH_SEPARATOR .$amz_folder . PATH_SEPARATOR .$amz_folder.DIRECTORY_SEPARATOR."MarketplaceWebService");
+    //set_include_path(get_include_path() . PATH_SEPARATOR . (FCPATH . 'amz') . PATH_SEPARATOR .(FCPATH . 'amz\MarketplaceWebService'));
+	
    /************************************************************************ 
     * OPTIONAL ON SOME INSTALLATIONS  
     * 
