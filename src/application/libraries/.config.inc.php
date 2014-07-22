@@ -42,8 +42,8 @@
     * Only needed when running library from local directory.
     * If library is installed in PHP include path, this is not needed
     ***********************************************************************/   
-    set_include_path(get_include_path() . PATH_SEPARATOR . 'C:\xampp\htdocs\AMZSALEM\src\amz' . PATH_SEPARATOR ."C:\xampp\htdocs\AMZSALEM\src\amz\MarketplaceWebService");
-
+    $amz_folder = __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."amz";
+    set_include_path(get_include_path() . PATH_SEPARATOR .$amz_folder . PATH_SEPARATOR .$amz_folder.DIRECTORY_SEPARATOR."MarketplaceWebService");
    /************************************************************************ 
     * OPTIONAL ON SOME INSTALLATIONS  
     * 

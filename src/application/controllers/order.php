@@ -34,7 +34,7 @@ class Order extends CI_Controller {
 		$order = $orderModel->where('amazonOrderId', $id)->get();
 
 		$feed =  $this->parser->parse('xml/order_shipped', array(
-				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
+				'MerchantIdentifier' => MERCHANT_ID,
 				'AmazonOrderID' => $id,
 				'Orders' => $order_item_list), TRUE);
 
@@ -53,7 +53,7 @@ class Order extends CI_Controller {
 		$orderItemModel = new OrderItemModel();
 		$order_item_list = $orderItemModel->where('amazonOrderId', $id)->get()->all_to_array();
 		$feed =  $this->parser->parse('xml/order_template', array(
-				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
+				'MerchantIdentifier' => MERCHANT_ID,
 				'AmazonOrderID' => $id,
 				'Orders' => $order_item_list), TRUE);
 

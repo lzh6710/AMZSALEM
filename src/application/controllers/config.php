@@ -52,6 +52,6 @@ class Config extends CI_Controller {
 		$amzConfig->update($config);
 
 		
-		redirect('user/logout');
+		redirect('config');
 	}
 }

@@ -79,7 +79,7 @@ class Product extends CI_Controller {
 				$messages.= $this->parser->parse('xml/product_image_message', $image, TRUE);
 		}
 		$feed =  $this->parser->parse('xml/product_image', array(
-				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
+				'MerchantIdentifier' => MERCHANT_ID,
 				'Message' => $messages), TRUE);
 		try {
 			$result = $this->amazon_api->submitImage($feed);
@@ -103,7 +103,7 @@ class Product extends CI_Controller {
 	
 	public function update_price() {
 		$price = array(
-				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
+				'MerchantIdentifier' => MERCHANT_ID,
 				'SKU' => $this->input->post('SKU'),
 				'currency' => $this->input->post('currency'),
 				'price' => $this->input->post('price')
@@ -130,7 +130,7 @@ class Product extends CI_Controller {
 	
 	public function update_inventory() {
 		$inventory = array(
-				'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
+				'MerchantIdentifier' => MERCHANT_ID,
 				'SKU' => $this->input->post('SKU'),
 				'Quantity' => $this->input->post('quantity'),
 				'FulfillmentLatency' => $this->input->post('fulfillmentLatency')
@@ -220,7 +220,7 @@ class Product extends CI_Controller {
 
 			try{
 				$data = array(
-						'MerchantIdentifier' => 'A2T7KN13JZ9T6W',
+						'MerchantIdentifier' => MERCHANT_ID,
 						'Title' => $productModel->title,
 						'SKU' => $productModel->SKU,
 						'UPC' => $productModel->UPC,

@@ -53,7 +53,7 @@ class Amazon_api
 	}
 	
 	function submitFeed($feed, $type) {
-		$marketplaceIdArray = array("Id" => array('A1VC38T7YXB528'));
+		$marketplaceIdArray = array("Id" => array(MARKETPLACE_ID));
 
 		$feedHandle = @fopen('php://temp', 'rw+');
 		fwrite($feedHandle, $feed);
