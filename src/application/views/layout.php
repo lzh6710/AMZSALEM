@@ -101,6 +101,12 @@
 		                        <li><a href="<?php echo base_url()?>product/categories">Add New Product</a></li>
 		                    </ul>
 		                </li>
+						<li>
+		                    <a href="<?php echo base_url()?>config">
+		                        <i class="fa fa-cog"></i>
+		                        <span>Config</span>
+		                    </a>
+		                </li>
 		          </ul>
 		         </div>
 			</div>

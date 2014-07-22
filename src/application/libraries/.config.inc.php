@@ -14,8 +14,8 @@
     * to anyone. It is important to keep your Secret Access Key confidential
     * to protect your account.
     ***********************************************************************/
-    define('AWS_ACCESS_KEY_ID', 'AKIAJMT63IFLVUIJYMBA');
-    define('AWS_SECRET_ACCESS_KEY', 'PBb0UlBHmYrW+SACcpZudwGMF2kti3IteG/Ish0U');
+    //define('AWS_ACCESS_KEY_ID', 'AKIAJMT63IFLVUIJYMBA');
+    //define('AWS_SECRET_ACCESS_KEY', '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');
 
    /************************************************************************
     * REQUIRED
@@ -32,8 +32,8 @@
     * All MWS requests must contain the seller's merchant ID and
     * marketplace ID.
     ***********************************************************************/
-    define ('MERCHANT_ID', 'A2T7KN13JZ9T6W');
-    define ('MARKETPLACE_ID', 'A1VC38T7YXB528');
+    //define ('MERCHANT_ID', 'A2T7KN13JZ9T6W');
+    //define ('MARKETPLACE_ID', 'A1VC38T7YXB528');
     
    /************************************************************************ 
     * OPTIONAL ON SOME INSTALLATIONS
@@ -42,7 +42,7 @@
     * Only needed when running library from local directory.
     * If library is installed in PHP include path, this is not needed
     ***********************************************************************/   
-    set_include_path(get_include_path() . PATH_SEPARATOR . 'D:\Project\AMZSALEM\src\amz' . PATH_SEPARATOR ."D:\Project\AMZSALEM\src\amz\MarketplaceWebService");
+    set_include_path(get_include_path() . PATH_SEPARATOR . 'C:\xampp\htdocs\AMZSALEM\src\amz' . PATH_SEPARATOR ."C:\xampp\htdocs\AMZSALEM\src\amz\MarketplaceWebService");
 
    /************************************************************************ 
     * OPTIONAL ON SOME INSTALLATIONS  
